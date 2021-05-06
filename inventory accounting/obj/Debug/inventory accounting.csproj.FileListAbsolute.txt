@@ -13,3 +13,4 @@ C:\Users\Ilya1\source\repos\inventory accounting\inventory accounting\obj\Debug\
 C:\Users\Ilya1\source\repos\inventory accounting\inventory accounting\obj\Debug\inventory accounting.csproj.CoreCompileInputs.cache
 C:\Users\Ilya1\source\repos\inventory accounting\inventory accounting\obj\Debug\inventory accounting.exe
 C:\Users\Ilya1\source\repos\inventory accounting\inventory accounting\obj\Debug\inventory accounting.pdb
+C:\Users\Ilya1\source\repos\inventory accounting\inventory accounting\obj\Debug\inventory accounting.csproj.ResolveComReference.cache

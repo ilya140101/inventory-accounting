@@ -1,18 +1,18 @@
 ﻿inventory accounting
 
 
-exe
+winexe
 C#
 .cs
-C:\Users\Ilya1\source\repos\inventory accounting\inventory accounting\obj\Debug\
+C:\Users\Ilya1\source\repos\inventory accounting\inventory accounting\obj\Release\
 inventory_accounting
 none
 false
-DEBUG;TRACE
+TRACE
 C:\Users\Ilya1\source\repos\inventory accounting\inventory accounting\App.xaml
 11151548125
 
-11727849232
+71168426395
 16731250605
 MainWindow.xaml;
 

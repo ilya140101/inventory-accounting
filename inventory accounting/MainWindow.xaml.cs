@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using inventory_accounting;
+using Microsoft.Win32;
+
 
 namespace inventory_accounting
 {
@@ -23,6 +26,32 @@ namespace inventory_accounting
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+           
+           
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog OPF = new OpenFileDialog();
+            OPF.Filter = "Excel Worksheets|*.xls*";
+            if (OPF.ShowDialog()==true)
+            {
+                Database database = new Database();
+                try
+                {
+                    database.makeDataBase(OPF.FileName);
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }
     }
 }

@@ -7,6 +7,21 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Menu Height="25" VerticalAlignment="Top" FontSize="15">
+            <MenuItem Header="База данных">
+                <MenuItem Header="Загрузить базу данных" Click="MenuItem_Click" ></MenuItem>
+                <MenuItem Header="Open Project" >
+                    <MenuItem Header="WinForms"></MenuItem>
+                    <MenuItem Header="WPF" ></MenuItem>
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="Exit" ></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Edit" ></MenuItem>
+            <MenuItem Header="View" ></MenuItem>
+        </Menu>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="254,142,0,0" VerticalAlignment="Top" Width="272" Height="126" Click="Button_Click"/>
+        <TextBox x:Name="lab" HorizontalAlignment="Left" Height="23" Margin="61,88,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+
     </Grid>
 </Window>
