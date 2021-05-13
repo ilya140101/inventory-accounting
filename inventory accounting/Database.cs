@@ -94,8 +94,11 @@ namespace inventory_accounting
 
             OleDbCommand command = new OleDbCommand(query, myConnection);
             OleDbDataReader reader = command.ExecuteReader();
+            int i = 0;
             while (reader.Read())
             {
+                
+                
                 products.Add(new Product(Convert.ToInt32(reader[0]), reader[1].ToString(), Convert.ToDouble(reader[2]), Convert.ToDouble(reader[3]), Convert.ToDouble(reader[4])));
 
             }

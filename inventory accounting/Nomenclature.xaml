@@ -8,7 +8,7 @@
         Title="Nomenclature" Height="600" Width="900">
     <Grid>
         <Grid Margin="50,34,42,70">
-            <DataGrid x:Name="table" AutoGenerateColumns="True" Width="auto" Margin="0,0,0,0" ColumnWidth="auto" FontSize="18" SelectionMode="Single"  >
+            <DataGrid ScrollViewer.CanContentScroll="True" x:Name="table" AutoGenerateColumns="True" Width="auto" Margin="0,0,0,0" ColumnWidth="auto" FontSize="18" SelectionMode="Single"  >
 
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Код" Binding="{Binding Code}" Width="auto" />
@@ -18,16 +18,7 @@
                     <DataGridTextColumn Header="Розница" Binding="{Binding SalePrice}" Width="*" />
 
                 </DataGrid.Columns>
-                <DataGrid.Resources>
-                    <Style TargetType="{x:Type DataGridCell}">
-                        <Style.Triggers>
-                            <Trigger Property="DataGridCell.IsSelected" Value="True">
-                                <Setter Property="Background" Value="#CCDAFF" />
-                                <Setter Property="Foreground" Value="Black" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </DataGrid.Resources>
+                
             </DataGrid>
             <TextBox  x:Name="find_code" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="23" Margin="88,0,0,-33" TextWrapping="Wrap" Text="Код"  Width="80" FontSize="18"   TextChanged="Find_code_TextChanged" />
             <TextBox x:Name="find_name" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="23" Margin="168,0,0,-33" TextWrapping="Wrap" Text="Наименование"  Width="268" FontSize="18" TextChanged="Find_name_TextChanged"/>

@@ -32,18 +32,7 @@ namespace inventory_accounting
         }
 
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (this.nomenclature == null)
-            {
-                nomenclature = new Nomenclature(database);
-                nomenclature.Show();
-            }
-            else
-                nomenclature.Focus();
-            this.nomenclature.Unloaded += (Nomenclature, args) => this.nomenclature = null;
-
-        }
+       
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
@@ -64,20 +53,23 @@ namespace inventory_accounting
             }
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Nomenclature_Click(sender, e);
+
+        }
 
         private void Nomenclature_Click(object sender, RoutedEventArgs e)
         {
-            //if (this.nomenclature == null)
-            //{
-            //    nomenclature = new Nomenclature(database);
-            //    nomenclature.Show();
-            //}
-            //else
-            //    nomenclature.Focus();
-            //this.nomenclature.Closing += (Nomenclature, args) => this.nomenclature = null;
-            Button_Click(null, null);
-            //Nomenclature nomenclature = new Nomenclature(database);
-            //nomenclature.Show();
+            if (this.nomenclature == null)
+            {
+                nomenclature = new Nomenclature(database);
+                nomenclature.Show();
+            }
+            else
+                nomenclature.Focus();
+            this.nomenclature.Closing += (Nomenclature, args) => this.nomenclature = null;
+          
         }
     }
 }

@@ -19,17 +19,19 @@ namespace inventory_accounting
     /// </summary>
     public partial class Nomenclature : Window
     {
+
         public Database database;
         public Nomenclature(Database database)
         {
             InitializeComponent();
             this.database = database;
             tableSettings();
-            addingEvents();        
+            addingEvents();
 
         }
         private void tableSettings()
         {
+
             table.IsReadOnly = true;
             table.CanUserAddRows = false;
             table.CanUserDeleteRows = false;
@@ -48,7 +50,7 @@ namespace inventory_accounting
             find_name.LostFocus += Find_LostFocus;
             find_quantity.LostFocus += Find_LostFocus;
             find_salePrice.LostFocus += Find_LostFocus;
-            find_purchasePrice.LostFocus += Find_LostFocus;            
+            find_purchasePrice.LostFocus += Find_LostFocus;
         }
 
 
@@ -70,30 +72,43 @@ namespace inventory_accounting
 
         private void Find_LostFocus(object sender, RoutedEventArgs e)
         {
-            if ((sender as TextBox).Name == "find_code")
-                find_code.Text = "Код";
-            if ((sender as TextBox).Name == "find_name")
-                find_name.Text = "Наименование";
-            if ((sender as TextBox).Name == "find_quantity")
-                find_quantity.Text = "Количество";
-            if ((sender as TextBox).Name == "find_salePrice")
-                find_salePrice.Text = "Розница";
-            if ((sender as TextBox).Name == "find_purchasePrice")
-                find_purchasePrice.Text = "Закупка";
+            if (!(sender is TextBox tbx))
+                return;
+            string text = null;
+            switch (tbx.Name)
+            {
+                case "find_code": text = "Код"; break;
+                case "find_name": text = "Наименование"; break;
+                case "find_quantity": text = "Количество"; break;
+                case "find_salePrice": text = "Розница"; break;
+                case "find_purchasePrice": text = "Закупка"; break;
+            }
+            tbx.Text = text;
         }
 
+        //private  void Find_name_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    if (find_name == null || database == null)
+        //        return;
+        //    var tmp = database.Products.Where(x => x.Name.StartsWith(find_name.Text, StringComparison.OrdinalIgnoreCase)).ToList();
+        //    if (tmp.Count == 0)
+        //    {
+        //        return;
+        //    }
+        //    table.ScrollIntoView(tmp[0]);
+        //    table.SelectedIndex = table.Items.IndexOf(tmp[0]);
+        //}
         private void Find_name_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (find_name == null || database == null)
+            if (database is null || !(sender is TextBox tbx) || string.IsNullOrWhiteSpace(tbx.Text))
                 return;
-            var tmp = database.Products.Where(x => x.Name.StartsWith(find_name.Text, StringComparison.OrdinalIgnoreCase)).ToList();
-            if (tmp.Count == 0)
-            {
+            var item = database.Products.Find(x => x.Name.StartsWith(tbx.Text, StringComparison.OrdinalIgnoreCase));
+            if (item is null)
                 return;
-            }
-            table.ScrollIntoView(tmp[0]);
-            table.SelectedIndex = table.Items.IndexOf(tmp[0]);
+            table.SelectedIndex = database.Products.IndexOf(item);
+            table.ScrollIntoView(item); 
         }
+
         private void Find_code_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
@@ -109,7 +124,7 @@ namespace inventory_accounting
                 tmp.Sort((x, y) => x.Code.CompareTo(y.Code));
                 table.ScrollIntoView(tmp[0]);
                 table.SelectedIndex = table.Items.IndexOf(tmp[0]);
-                
+
             }
             catch (Exception ex)
             {
@@ -118,12 +133,13 @@ namespace inventory_accounting
 
         }
 
+
         private void Find_quantity_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (find_quantity == null || database == null)
                 return;
             var tmp = database.Products.Where(x => x.Quantity.ToString().StartsWith(find_quantity.Text, StringComparison.OrdinalIgnoreCase)).ToList();
-            if (tmp.Count == 0)return;
+            if (tmp.Count == 0) return;
             tmp.Sort((x, y) => x.Quantity.CompareTo(y.Quantity));
             table.ScrollIntoView(tmp[0]);
             table.SelectedIndex = table.Items.IndexOf(tmp[0]);
