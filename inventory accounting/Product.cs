@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
-namespace inventory_accounting
+namespace inventory_accounting 
 {
-    class Product
+    class Product 
     {
         private int code;
         private string name;
         private double quantity;
         private double purchasePrice;
         private double salePrice;
+       
+
 
         public Product(int code, string name, double quantity, double purchasePrice, double salePrice)
         {
@@ -21,6 +24,7 @@ namespace inventory_accounting
             this.quantity = quantity;
             this.purchasePrice = purchasePrice;
             this.salePrice = salePrice;
+           
         }
 
         public int Code { get => code; set => code = value; }
@@ -28,7 +32,6 @@ namespace inventory_accounting
         public double Quantity { get => quantity; set => quantity = value; }
         public double PurchasePrice { get => purchasePrice; set => purchasePrice = value; }
         public double SalePrice { get => salePrice; set => salePrice = value; }
-
         
     }
 }

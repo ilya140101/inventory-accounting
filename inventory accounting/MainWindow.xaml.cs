@@ -23,25 +23,35 @@ namespace inventory_accounting
     /// </summary>
     public partial class MainWindow : Window
     {
+        public Database database;
+        public Nomenclature nomenclature;
         public MainWindow()
         {
             InitializeComponent();
+            database = new Database();
         }
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            if (this.nomenclature == null)
+            {
+                nomenclature = new Nomenclature(database);
+                nomenclature.Show();
+            }
+            else
+                nomenclature.Focus();
+            this.nomenclature.Unloaded += (Nomenclature, args) => this.nomenclature = null;
 
-           
-           
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog OPF = new OpenFileDialog();
             OPF.Filter = "Excel Worksheets|*.xls*";
-            if (OPF.ShowDialog()==true)
+            if (OPF.ShowDialog() == true)
             {
-                Database database = new Database();
+
                 try
                 {
                     database.makeDataBase(OPF.FileName);
@@ -52,6 +62,22 @@ namespace inventory_accounting
                     MessageBox.Show(ex.Message);
                 }
             }
+        }
+
+
+        private void Nomenclature_Click(object sender, RoutedEventArgs e)
+        {
+            //if (this.nomenclature == null)
+            //{
+            //    nomenclature = new Nomenclature(database);
+            //    nomenclature.Show();
+            //}
+            //else
+            //    nomenclature.Focus();
+            //this.nomenclature.Closing += (Nomenclature, args) => this.nomenclature = null;
+            Button_Click(null, null);
+            //Nomenclature nomenclature = new Nomenclature(database);
+            //nomenclature.Show();
         }
     }
 }

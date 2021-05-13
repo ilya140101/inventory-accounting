@@ -11,9 +11,9 @@ using Excel = Microsoft.Office.Interop.Excel;
 namespace inventory_accounting
 {
 
-    class Database
+    public class Database
     {
-
+        private List<Product> products;
         private Excel.Application excelapp;
         private Excel.Sheets excelsheets;
         private Excel.Worksheet excelworksheet;
@@ -26,8 +26,10 @@ namespace inventory_accounting
         private Excel.Range excelcells5;
 
         public static string connectString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=DataBase.mdb;";
-
         private OleDbConnection myConnection;
+
+        internal List<Product> Products { get => products; set => products = value; }
+
         public void makeDataBase(string path)
         {
             myConnection = new OleDbConnection(connectString);
@@ -83,5 +85,28 @@ namespace inventory_accounting
             myConnection.Close();
            
         }
+        public Database()
+        {
+            products = new List<Product>();
+            myConnection = new OleDbConnection(connectString);
+            myConnection.Open();
+            string query = "SELECT * FROM products ";
+
+            OleDbCommand command = new OleDbCommand(query, myConnection);
+            OleDbDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                products.Add(new Product(Convert.ToInt32(reader[0]), reader[1].ToString(), Convert.ToDouble(reader[2]), Convert.ToDouble(reader[3]), Convert.ToDouble(reader[4])));
+
+            }
+            reader.Close();
+            myConnection.Close();
+        }
+        public void createCollection()
+        {
+           
+        }
     }
+
+    
 }
