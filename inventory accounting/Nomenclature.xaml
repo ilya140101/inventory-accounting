@@ -5,29 +5,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:inventory_accounting"
         mc:Ignorable="d"
-        Title="Nomenclature" Height="600" Width="900">
+        Title="Номенклатура" Height="700" Width="1000">
     <Grid>
-        <Grid Margin="50,34,42,70">
-            <DataGrid ScrollViewer.CanContentScroll="True" x:Name="table" AutoGenerateColumns="True" Width="auto" Margin="0,0,0,0" ColumnWidth="auto" FontSize="18" SelectionMode="Single"  >
-
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <DataGrid x:Name="table"  AutoGenerateColumns="False" Margin="30,30,30,0" FontSize="18" SelectionMode="Single" IsReadOnly="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Код" Binding="{Binding Code}" Width="auto" />
-                    <DataGridTextColumn Header="Наименование" Binding="{Binding Name}" Width="auto" />
-                    <DataGridTextColumn Header="Остатки" Binding="{Binding Quantity}" Width="*" />
-                    <DataGridTextColumn Header="Закупка" Binding="{Binding PurchasePrice}" Width="*" />
-                    <DataGridTextColumn Header="Розница" Binding="{Binding SalePrice}" Width="*" />
-
+                    <DataGridTextColumn Header="Код" Binding="{Binding Code}" Width="Auto" x:Name="dgCode"/>
+                    <DataGridTextColumn Header="Наименование" Binding="{Binding Name}" Width="Auto" x:Name="dgName"/>
+                    <DataGridTextColumn Header="Остатки" Binding="{Binding Quantity}" Width="*" x:Name="dgQuantity"/>
+                    <DataGridTextColumn Header="Закупка" Binding="{Binding PurchasePrice}" Width="*" x:Name="dgPurchasePrice"/>
+                    <DataGridTextColumn Header="Розница" Binding="{Binding SalePrice}" Width="*" x:Name="dgSalePrice" />
                 </DataGrid.Columns>
-                
+                <DataGrid.RowHeaderStyle>
+                    <Style TargetType="{x:Type DataGridRowHeader}">
+                        <Setter Property="Width" Value="0"/>
+                    </Style>
+                </DataGrid.RowHeaderStyle>
+                <DataGrid.Resources>
+                    <Style TargetType="{x:Type DataGridCell}">
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True" >
+                                <Setter Property="Background" Value="#CCDAFF" />
+                                <Setter Property="Foreground" Value="Black" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.Resources>
             </DataGrid>
-            <TextBox  x:Name="find_code" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="23" Margin="88,0,0,-33" TextWrapping="Wrap" Text="Код"  Width="80" FontSize="18"   TextChanged="Find_code_TextChanged" />
-            <TextBox x:Name="find_name" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="23" Margin="168,0,0,-33" TextWrapping="Wrap" Text="Наименование"  Width="268" FontSize="18" TextChanged="Find_name_TextChanged"/>
-            <TextBox x:Name="find_quantity" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="23" Margin="436,0,0,-33" TextWrapping="Wrap" Text="Количество"  Width="122" FontSize="18" TextChanged="Find_quantity_TextChanged"/>
-            <TextBox x:Name="find_purchasePrice" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="23" Margin="558,0,0,-33" TextWrapping="Wrap" Text="Закупка"  Width="79" FontSize="18" RenderTransformOrigin="1.004,1.884" TextChanged="Find_purchasePrice_TextChanged"/>
-            <TextBox x:Name="find_salePrice" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="23" Margin="637,0,0,-33" TextWrapping="Wrap" Text="Розница"  Width="104" FontSize="18" TextChanged="Find_salePrice_TextChanged"/>
-            <TextBlock HorizontalAlignment="Left" Margin="0,0,0,-33" VerticalAlignment="Bottom" TextWrapping="Wrap"  FontSize="18" Height="23" RenderTransformOrigin="1.091,0.438" FontWeight="Bold"><Run Text="Поиск:"/><LineBreak/><Run/></TextBlock>
-
+            <StackPanel Grid.Row="1" Margin="30,10" Orientation="Horizontal">
+                <TextBox x:Name="find_code" TextWrapping="Wrap" Text="Код" Width="{Binding ActualWidth,ElementName=dgCode}" FontSize="18" TextChanged="Find_code_TextChanged" GotFocus="Find_GotFocus" LostFocus="Find_LostFocus"/>
+                <TextBox x:Name="find_name" TextWrapping="Wrap" Text="Наименование" Width="{Binding ActualWidth,ElementName=dgName}" FontSize="18" TextChanged="Find_name_TextChanged" GotFocus="Find_GotFocus" LostFocus="Find_LostFocus"/>
+                <TextBox x:Name="find_quantity" TextWrapping="Wrap" Text="Количество" Width="{Binding ActualWidth,ElementName=dgQuantity}" FontSize="18" TextChanged="Find_quantity_TextChanged" GotFocus="Find_GotFocus" LostFocus="Find_LostFocus"/>
+                <TextBox x:Name="find_salePrice" TextWrapping="Wrap" Text="Закупка" Width="{Binding ActualWidth,ElementName=dgPurchasePrice}" FontSize="18" TextChanged="Find_purchasePrice_TextChanged" GotFocus="Find_GotFocus" LostFocus="Find_LostFocus"/>
+                <TextBox x:Name="find_purchasePrice" TextWrapping="Wrap" Text="Розница" Width="{Binding ActualWidth,ElementName=dgSalePrice}" FontSize="18" TextChanged="Find_salePrice_TextChanged" GotFocus="Find_GotFocus" LostFocus="Find_LostFocus"/>
+            </StackPanel>
         </Grid>
-
     </Grid>
 </Window>

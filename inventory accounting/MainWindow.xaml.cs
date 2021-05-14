@@ -36,27 +36,34 @@ namespace inventory_accounting
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog OPF = new OpenFileDialog();
-            OPF.Filter = "Excel Worksheets|*.xls*";
-            if (OPF.ShowDialog() == true)
+            try
             {
-
-                try
+                OpenFileDialog OPF = new OpenFileDialog();
+                OPF.Filter = "Excel Worksheets|*.xls*";
+                if (OPF.ShowDialog() == true)
                 {
-                    database.makeDataBase(OPF.FileName);
 
+                    try
+                    {
+                        database.makeDataBase(OPF.FileName);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Nomenclature_Click(sender, e);
 
+           
         }
 
         private void Nomenclature_Click(object sender, RoutedEventArgs e)

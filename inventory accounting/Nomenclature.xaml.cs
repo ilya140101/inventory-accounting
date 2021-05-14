@@ -21,60 +21,24 @@ namespace inventory_accounting
     {
 
         public Database database;
+        public List<Product> Products;
         public Nomenclature(Database database)
         {
             InitializeComponent();
             this.database = database;
-            tableSettings();
-            addingEvents();
-
+            Products = database.Products;
+            table.ItemsSource = Products;
         }
-        private void tableSettings()
-        {
-
-            table.IsReadOnly = true;
-            table.CanUserAddRows = false;
-            table.CanUserDeleteRows = false;
-            table.AutoGenerateColumns = false;
-            table.ItemsSource = database.Products;
-        }
-        private void addingEvents()
-        {
-            find_code.GotFocus += Find_GotFocus;
-            find_name.GotFocus += Find_GotFocus;
-            find_quantity.GotFocus += Find_GotFocus;
-            find_salePrice.GotFocus += Find_GotFocus;
-            find_purchasePrice.GotFocus += Find_GotFocus;
-
-            find_code.LostFocus += Find_LostFocus;
-            find_name.LostFocus += Find_LostFocus;
-            find_quantity.LostFocus += Find_LostFocus;
-            find_salePrice.LostFocus += Find_LostFocus;
-            find_purchasePrice.LostFocus += Find_LostFocus;
-        }
-
-
-
         private void Find_GotFocus(object sender, RoutedEventArgs e)
         {
-            if ((sender as TextBox).Name == "find_code")
-                find_code.Text = "";
-            if ((sender as TextBox).Name == "find_name")
-                find_name.Text = "";
-            if ((sender as TextBox).Name == "find_quantity")
-                find_quantity.Text = "";
-            if ((sender as TextBox).Name == "find_salePrice")
-                find_salePrice.Text = "";
-            if ((sender as TextBox).Name == "find_purchasePrice")
-                find_purchasePrice.Text = "";
-
+            if (sender is TextBox tbx)
+                tbx.Text = string.Empty;
         }
-
         private void Find_LostFocus(object sender, RoutedEventArgs e)
         {
             if (!(sender is TextBox tbx))
                 return;
-            string text = null;
+            string text = string.Empty;
             switch (tbx.Name)
             {
                 case "find_code": text = "Код"; break;
@@ -86,93 +50,63 @@ namespace inventory_accounting
             tbx.Text = text;
         }
 
-        //private  void Find_name_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-        //    if (find_name == null || database == null)
-        //        return;
-        //    var tmp = database.Products.Where(x => x.Name.StartsWith(find_name.Text, StringComparison.OrdinalIgnoreCase)).ToList();
-        //    if (tmp.Count == 0)
-        //    {
-        //        return;
-        //    }
-        //    table.ScrollIntoView(tmp[0]);
-        //    table.SelectedIndex = table.Items.IndexOf(tmp[0]);
-        //}
-        private void Find_name_TextChanged(object sender, TextChangedEventArgs e)
+        private void SelectItem(Product item)
+        {
+            if (item is null)
+                return;
+            table.SelectedItem = item;
+            table.ScrollIntoView(item);
+        }
+
+
+
+
+        private async void Find_name_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (database is null || !(sender is TextBox tbx) || string.IsNullOrWhiteSpace(tbx.Text))
                 return;
-            var item = database.Products.Find(x => x.Name.StartsWith(tbx.Text, StringComparison.OrdinalIgnoreCase));
+            string text = tbx.Text;
+            var item = await Task.Run(() => database.findItem("Name", text));
             if (item is null)
                 return;
-            table.SelectedIndex = database.Products.IndexOf(item);
-            table.ScrollIntoView(item); 
+            SelectItem(item);
         }
 
-        private void Find_code_TextChanged(object sender, TextChangedEventArgs e)
+        private async void Find_code_TextChanged(object sender, TextChangedEventArgs e)
         {
-            try
-            {
-                if (find_code == null || database == null)
-                    return;
-                var tmp = database.Products.Where(x => x.Code.ToString().StartsWith(find_code.Text, StringComparison.OrdinalIgnoreCase)).ToList();
-
-                if (tmp.Count == 0)
-                {
-                    return;
-                }
-                tmp.Sort((x, y) => x.Code.CompareTo(y.Code));
-                table.ScrollIntoView(tmp[0]);
-                table.SelectedIndex = table.Items.IndexOf(tmp[0]);
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
+            if (database is null || !(sender is TextBox tbx) || !int.TryParse(tbx.Text, out int number))
+                return;
+            string text = tbx.Text;            
+            var item = await Task.Run(() =>database.findItem("Code", text) );           
+            SelectItem(item);
         }
 
 
-        private void Find_quantity_TextChanged(object sender, TextChangedEventArgs e)
+        private async void Find_quantity_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (find_quantity == null || database == null)
+            if (database is null || !(sender is TextBox tbx) || !double.TryParse(tbx.Text, out double number))
                 return;
-            var tmp = database.Products.Where(x => x.Quantity.ToString().StartsWith(find_quantity.Text, StringComparison.OrdinalIgnoreCase)).ToList();
-            if (tmp.Count == 0) return;
-            tmp.Sort((x, y) => x.Quantity.CompareTo(y.Quantity));
-            table.ScrollIntoView(tmp[0]);
-            table.SelectedIndex = table.Items.IndexOf(tmp[0]);
+            string text = tbx.Text;
+            var item = await Task.Run(() => database.findItem("Quantity", text));            
+            SelectItem(item);
         }
 
-        private void Find_purchasePrice_TextChanged(object sender, TextChangedEventArgs e)
+        private async void Find_purchasePrice_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (find_purchasePrice == null || database == null)
+            if (database is null || !(sender is TextBox tbx) || !double.TryParse(tbx.Text, out double number))
                 return;
-            var tmp = database.Products.Where(x => x.PurchasePrice.ToString().StartsWith(find_purchasePrice.Text, StringComparison.OrdinalIgnoreCase)).ToList();
-
-            if (tmp.Count == 0)
-            {
-                return;
-            }
-            tmp.Sort((x, y) => x.PurchasePrice.CompareTo(y.PurchasePrice));
-            table.ScrollIntoView(tmp[0]);
-            table.SelectedIndex = table.Items.IndexOf(tmp[0]);
+            string text = tbx.Text;
+            var item = await Task.Run(() => database.findItem("PurchasePrice", text));
+           SelectItem(item);
         }
 
-        private void Find_salePrice_TextChanged(object sender, TextChangedEventArgs e)
+        private async void Find_salePrice_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (find_salePrice == null || database == null)
+            if (database is null || !(sender is TextBox tbx) || !double.TryParse(tbx.Text, out double number))
                 return;
-            var tmp = database.Products.Where(x => x.SalePrice.ToString().StartsWith(find_salePrice.Text, StringComparison.OrdinalIgnoreCase)).ToList();
-
-            if (tmp.Count == 0)
-            {
-                return;
-            }
-            tmp.Sort((x, y) => x.SalePrice.CompareTo(y.SalePrice));
-            table.ScrollIntoView(tmp[0]);
-            table.SelectedIndex = table.Items.IndexOf(tmp[0]);
+            string text = tbx.Text;
+            var item = await Task.Run(() => database.findItem("SalePrice", text));          
+            SelectItem(item);
         }
     }
 }

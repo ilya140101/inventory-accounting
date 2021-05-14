@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace inventory_accounting 
 {
-    class Product 
+    public class Product 
     {
         private int code;
         private string name;
