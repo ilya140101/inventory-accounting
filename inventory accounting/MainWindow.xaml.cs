@@ -30,10 +30,6 @@ namespace inventory_accounting
             InitializeComponent();
             database = new Database();
         }
-
-
-       
-
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -54,7 +50,7 @@ namespace inventory_accounting
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -62,21 +58,37 @@ namespace inventory_accounting
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                Sales sales = new Sales(new List<Product>(), database);
+                sales.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
-           
         }
 
         private void Nomenclature_Click(object sender, RoutedEventArgs e)
         {
-            if (this.nomenclature == null)
+            try
             {
-                nomenclature = new Nomenclature(database);
-                nomenclature.Show();
+                if (this.nomenclature == null)
+                {
+                    nomenclature = new Nomenclature(database.Products);
+                    nomenclature.Show();
+                }
+                else
+                    nomenclature.Focus();
+                this.nomenclature.Closing += (Nomenclature, args) => this.nomenclature = null;
             }
-            else
-                nomenclature.Focus();
-            this.nomenclature.Closing += (Nomenclature, args) => this.nomenclature = null;
-          
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+
         }
     }
 }

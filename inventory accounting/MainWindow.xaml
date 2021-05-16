@@ -8,7 +8,7 @@
         Title="Главное окно" Height="450"
         WindowState="Maximized">
     <Grid>
-        
+
         <Menu Height="25" VerticalAlignment="Top" FontSize="15" Grid.ColumnSpan="2">
             <MenuItem Header="База данных">
                 <MenuItem Header="Загрузить базу данных" Click="MenuItem_Click" ></MenuItem>

@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="inventory_accounting.Selection"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:inventory_accounting"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="1000">
+    <Grid>
+    <Grid Margin="198,0,0,153">
+        <local:Table x:Name="find_selection" Margin="-39,0,0,126"></local:Table>
+    </Grid>
+        <Grid Margin="0,254,388,0">
+            <local:Table FontSize="14" x:Name="selection" Margin="0,133,-227,0">
+                
+            </local:Table>
+        </Grid>
+    </Grid>
+</UserControl>

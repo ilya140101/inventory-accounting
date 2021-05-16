@@ -1,0 +1,17 @@
+C:\Users\Ilya1\source\repos\inventory accounting\MyTables\obj\Debug\MyTables.csprojAssemblyReference.cache
+C:\Users\Ilya1\source\repos\inventory accounting\MyTables\obj\Debug\Table.g.cs
+C:\Users\Ilya1\source\repos\inventory accounting\MyTables\obj\Debug\MyTables_MarkupCompile.cache
+C:\Users\Ilya1\source\repos\inventory accounting\MyTables\obj\Debug\MyTables_MarkupCompile.lref
+C:\Users\Ilya1\source\repos\inventory accounting\MyTables\bin\Debug\MyTables.dll
+C:\Users\Ilya1\source\repos\inventory accounting\MyTables\bin\Debug\MyTables.pdb
+C:\Users\Ilya1\source\repos\inventory accounting\MyTables\bin\Debug\inventory accounting.exe
+C:\Users\Ilya1\source\repos\inventory accounting\MyTables\bin\Debug\inventory accounting.pdb
+C:\Users\Ilya1\source\repos\inventory accounting\MyTables\bin\Debug\inventory accounting.exe.config
+C:\Users\Ilya1\source\repos\inventory accounting\MyTables\obj\Debug\Table.baml
+C:\Users\Ilya1\source\repos\inventory accounting\MyTables\obj\Debug\MyTables.g.resources
+C:\Users\Ilya1\source\repos\inventory accounting\MyTables\obj\Debug\MyTables.Properties.Resources.resources
+C:\Users\Ilya1\source\repos\inventory accounting\MyTables\obj\Debug\MyTables.csproj.GenerateResource.cache
+C:\Users\Ilya1\source\repos\inventory accounting\MyTables\obj\Debug\MyTables.csproj.CoreCompileInputs.cache
+C:\Users\Ilya1\source\repos\inventory accounting\MyTables\obj\Debug\MyTables.csproj.CopyComplete
+C:\Users\Ilya1\source\repos\inventory accounting\MyTables\obj\Debug\MyTables.dll
+C:\Users\Ilya1\source\repos\inventory accounting\MyTables\obj\Debug\MyTables.pdb

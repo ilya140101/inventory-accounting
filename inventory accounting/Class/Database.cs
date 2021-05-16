@@ -28,7 +28,7 @@ namespace inventory_accounting
         public static string connectString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=DataBase.mdb;";
         private OleDbConnection myConnection;
 
-        internal List<Product> Products { get => products; set => products = value; }
+        public List<Product> Products { get => products; set => products = value; }
 
         public void makeDataBase(string path)
         {
@@ -94,66 +94,14 @@ namespace inventory_accounting
 
             OleDbCommand command = new OleDbCommand(query, myConnection);
             OleDbDataReader reader = command.ExecuteReader();
-            int i = 0;
-            while (reader.Read())
-            {
-
-
+           
+            while (reader.Read())         
                 products.Add(new Product(Convert.ToInt32(reader[0]), reader[1].ToString(), Convert.ToDouble(reader[2]), Convert.ToDouble(reader[3]), Convert.ToDouble(reader[4])));
 
-            }
             reader.Close();
             myConnection.Close();
         }
-        public Product findItem(string type, string text)
-        {
-            try
-            {
-                switch (type)
-                {
-
-                    case "Name": return this.Products.Find(x => x.Name.StartsWith(text, StringComparison.OrdinalIgnoreCase));
-                    case "Code":
-                        {
-                            var tmp = this.Products.Where(x => x.Code.ToString().StartsWith(text, StringComparison.OrdinalIgnoreCase)).ToList();
-                            if (tmp.Count == 0)
-                                return null;
-                            tmp.Sort((x, y) => x.Code.CompareTo(y.Code));
-                            return tmp.First();
-                        }
-                    case "Quantity":
-                        {
-                            var tmp = this.Products.Where(x => x.Quantity.ToString().StartsWith(text, StringComparison.OrdinalIgnoreCase)).ToList();
-                            if (tmp.Count == 0)
-                                return null;
-                            tmp.Sort((x, y) => x.Quantity.CompareTo(y.Quantity));
-                            return tmp.First();
-                        }
-                    case "PurchasePrice":
-                        {
-                            var tmp = this.Products.Where(x => x.PurchasePrice.ToString().StartsWith(text, StringComparison.OrdinalIgnoreCase)).ToList();
-                            if (tmp.Count == 0)
-                                return null;
-                            tmp.Sort((x, y) => x.PurchasePrice.CompareTo(y.PurchasePrice));
-                            return tmp.First();
-                        }
-                    case "SalePrice":
-                        {
-                            var tmp = this.Products.Where(x => x.SalePrice.ToString().StartsWith(text, StringComparison.OrdinalIgnoreCase)).ToList();
-                            if (tmp.Count == 0)
-                                return null;
-                            tmp.Sort((x, y) => x.SalePrice.CompareTo(y.SalePrice));
-                            return tmp.First();
-                        }
-
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            return null;
-        }
+       
     }
 
 

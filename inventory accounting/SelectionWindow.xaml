@@ -1,0 +1,15 @@
+﻿<Window x:Class="inventory_accounting.SelectionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:inventory_accounting"
+        mc:Ignorable="d"
+        Title="Подбор" Height="700" Width="1000">
+    <Grid>
+        <local:Selection x:Name="Selection" >
+            
+        </local:Selection>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="827,473,0,0" VerticalAlignment="Top" Width="143" Height="76" Click="Button_Click"/>
+    </Grid>
+</Window>
