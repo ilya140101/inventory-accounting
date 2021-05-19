@@ -13,7 +13,7 @@ namespace inventory_accounting
 
     public class Database
     {
-        private List<Product> products;
+       
         private Excel.Application excelapp;
         private Excel.Sheets excelsheets;
         private Excel.Worksheet excelworksheet;
@@ -28,7 +28,7 @@ namespace inventory_accounting
         public static string connectString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=DataBase.mdb;";
         private OleDbConnection myConnection;
 
-        public List<Product> Products { get => products; set => products = value; }
+        public List<Product> Products { get; set ; }
 
         public void makeDataBase(string path)
         {
@@ -87,7 +87,7 @@ namespace inventory_accounting
         }
         public Database()
         {
-            products = new List<Product>();
+            Products = new List<Product>();
             myConnection = new OleDbConnection(connectString);
             myConnection.Open();
             string query = "SELECT * FROM products ";
@@ -96,7 +96,7 @@ namespace inventory_accounting
             OleDbDataReader reader = command.ExecuteReader();
            
             while (reader.Read())         
-                products.Add(new Product(Convert.ToInt32(reader[0]), reader[1].ToString(), Convert.ToDouble(reader[2]), Convert.ToDouble(reader[3]), Convert.ToDouble(reader[4])));
+                Products.Add(new Product(Convert.ToInt32(reader[0]), reader[1].ToString(), Convert.ToDouble(reader[2]), Convert.ToDouble(reader[3]), Convert.ToDouble(reader[4])));
 
             reader.Close();
             myConnection.Close();

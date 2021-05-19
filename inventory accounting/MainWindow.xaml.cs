@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,8 +29,22 @@ namespace inventory_accounting
         public MainWindow()
         {
             InitializeComponent();
+            this.Closing += MainWindow_Closing;
             database = new Database();
         }
+
+        private void MainWindow_Closing(object sender, CancelEventArgs e)
+        {
+            //if (MessageBox.Show("Вы действительно хотите закрыть программу?", "", MessageBoxButton.YesNo, MessageBoxImage.Stop) == MessageBoxResult.Yes)
+            //{
+            //    Application.Current.Shutdown();
+            //}
+            //else
+            //    e.Cancel = true;
+            Application.Current.Shutdown();
+
+        }
+
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             try

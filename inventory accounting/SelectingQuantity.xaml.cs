@@ -20,20 +20,18 @@ namespace inventory_accounting
     /// </summary>
     public partial class SelectingQuantity : Window
     {
-        public Product item;       
-        public bool flag=false;
+        public Product item;
+        public bool flag = false;
         public SelectingQuantity(Product item)
         {
             InitializeComponent();
             this.item = item;
             SalePrice.Text = item.SalePrice.ToString();
             Count.Text = "1";
-            Summ.Text= item.SalePrice.ToString();
-            Name.Text = item.Name;
+            Summ.Text = item.SalePrice.ToString();
+            Name.Text = item.Name;       
             Count.Focus();
             Count.SelectAll();
-           
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -52,12 +50,14 @@ namespace inventory_accounting
             if (item is null || !(sender is TextBox tbx) || string.IsNullOrWhiteSpace(tbx.Text))
                 return;
             string text = tbx.Text;
-            Summ.Text = (Convert.ToDouble(text)*item.SalePrice).ToString();
+            Summ.Text = (Convert.ToDouble(text) * item.SalePrice).ToString();
         }
 
         private void OK_Click(object sender, RoutedEventArgs e)
         {
-            item = new Product(item.Code, item.Name, Convert.ToDouble(Count.Text), item.PurchasePrice, item.SalePrice);
+            if (string.IsNullOrWhiteSpace(Count.Text))
+                Button_Click(sender, e);
+            item = new Product(item.Code, item.Name, Convert.ToDouble(Count.Text), item.PurchasePrice, item.SalePrice, Convert.ToDouble(Discount.Text));
             flag = true;
             this.Close();
         }
@@ -68,6 +68,36 @@ namespace inventory_accounting
                 OK_Click(sender, e);
             if (e.Key == Key.Escape)
                 Button_Click(sender, e);
+        }
+
+        private void Discount_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (item is null || !(sender is TextBox tbx))
+                return;
+            if (string.IsNullOrWhiteSpace(tbx.Text))
+            {
+                Summ.Text = (Convert.ToDouble(Count.Text) * item.SalePrice).ToString();
+                return;
+            }
+            string text = tbx.Text;
+            Summ.Text = (Convert.ToDouble(Count.Text) * item.SalePrice - Convert.ToDouble(text)).ToString();
+
+            
+
+        }
+
+        private void Summ_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (item is null || !(sender is TextBox tbx))
+                return;
+            if (string.IsNullOrWhiteSpace(tbx.Text))
+            {
+                Discount.Text = (Convert.ToDouble(Count.Text) * item.SalePrice).ToString();
+                return;
+            }
+            string text = tbx.Text;
+            Discount.Text = (Convert.ToDouble(Count.Text) * item.SalePrice - Convert.ToDouble(text)).ToString();
+
         }
     }
 }

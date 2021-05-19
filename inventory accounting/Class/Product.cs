@@ -9,11 +9,10 @@ namespace inventory_accounting
 {
     public class Product 
     {
-       
-       
+         
 
         
-        public Product(int code, string name, double quantity, double purchasePrice, double salePrice)
+        public Product(int code, string name, double quantity, double purchasePrice, double salePrice, double discount=0)
         {
             this.Code = code;
             this.Name = name;
@@ -21,12 +20,19 @@ namespace inventory_accounting
             this.PurchasePrice = purchasePrice;
             this.SalePrice = salePrice;
             this.Summ = salePrice * quantity;
-            this.Discount = 0;
+            this.Discount = discount;
             this.SummDiscount = Summ - Discount;
            
         }
 
-       
+        public static Product operator +(Product a, Product b)
+        {
+            a.Quantity += b.Quantity;
+            a.Summ += b.Summ;
+            a.Discount += b.Discount;
+            a.SummDiscount += b.SummDiscount;
+            return a;
+        }
         public int Code { get; set; }
         public string Name { get; set; }
         public double Quantity { get; set; }

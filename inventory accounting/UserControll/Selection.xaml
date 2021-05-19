@@ -7,13 +7,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="1000">
     <Grid>
-    <Grid Margin="198,0,0,153">
-        <local:Table x:Name="find_selection" Margin="-39,0,0,126"></local:Table>
-    </Grid>
+        <Grid Margin="198,0,0,153">
+            <local:Table x:Name="find_selection" Margin="-39,0,0,126"></local:Table>
+        </Grid>
         <Grid Margin="0,254,388,0">
-            <local:Table FontSize="14" x:Name="selection" Margin="0,133,-227,0">
-                
-            </local:Table>
+            <local:Table FontSize="14" x:Name="selection" Margin="0,133,-227,0"></local:Table>
         </Grid>
     </Grid>
 </UserControl>
