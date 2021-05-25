@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using inventory_accounting;
 using Microsoft.Win32;
+
 
 
 namespace inventory_accounting
@@ -41,6 +43,7 @@ namespace inventory_accounting
             //}
             //else
             //    e.Cancel = true;
+            database.myConnection.Close();
             Application.Current.Shutdown();
 
         }
@@ -73,10 +76,18 @@ namespace inventory_accounting
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+
             try
             {
-                Sales sales = new Sales(new List<Product>(), database);
-                sales.Show();
+                //Запуск окна отчета
+                //DateTime date = DateTime.Now;
+                //Sales sales = new Sales(new List<Product>(), database, date);
+                //sales.Show();
+
+                DateTime date = DateTime.Now;
+                Report report = new Report(new List<Product>(), database, date, Database.Reports.Entrance);
+                report.Show();
+
             }
             catch (Exception ex)
             {
@@ -85,6 +96,24 @@ namespace inventory_accounting
 
         }
 
+        private async void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                database.myConnection.Open();
+                string query = "DELETE FROM report";
+                OleDbCommand command = new OleDbCommand(query, database.myConnection);
+                await Task.Run(()=>command.ExecuteNonQuery());
+                database.myConnection.Close();
+                MessageBox.Show("Готово");
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
         private void Nomenclature_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -104,6 +133,31 @@ namespace inventory_accounting
             }
 
 
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //Запуск окна отчета
+                DateTime date = DateTime.Now;
+                Report report = new Report(new List<Product>(), database, date, Database.Reports.Sales);
+                report.Show();
+
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            DateTime date = DateTime.Now;
+            Report report = new Report(new List<Product>(), database, date, Database.Reports.Debiting);
+            report.Show();
         }
     }
 }

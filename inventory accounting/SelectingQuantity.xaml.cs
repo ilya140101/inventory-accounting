@@ -29,7 +29,7 @@ namespace inventory_accounting
             SalePrice.Text = item.SalePrice.ToString();
             Count.Text = "1";
             Summ.Text = item.SalePrice.ToString();
-            Name.Text = item.Name;       
+            Name.Text = item.Name;
             Count.Focus();
             Count.SelectAll();
         }
@@ -49,14 +49,16 @@ namespace inventory_accounting
         {
             if (item is null || !(sender is TextBox tbx) || string.IsNullOrWhiteSpace(tbx.Text))
                 return;
+
             string text = tbx.Text;
-            Summ.Text = (Convert.ToDouble(text) * item.SalePrice).ToString();
+            Summ.Text = (Convert.ToDouble(text) * item.SalePrice - Convert.ToDouble(Discount.Text)).ToString();
         }
 
         private void OK_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(Count.Text))
                 Button_Click(sender, e);
+
             item = new Product(item.Code, item.Name, Convert.ToDouble(Count.Text), item.PurchasePrice, item.SalePrice, Convert.ToDouble(Discount.Text));
             flag = true;
             this.Close();
@@ -82,7 +84,6 @@ namespace inventory_accounting
             string text = tbx.Text;
             Summ.Text = (Convert.ToDouble(Count.Text) * item.SalePrice - Convert.ToDouble(text)).ToString();
 
-            
 
         }
 
@@ -97,6 +98,15 @@ namespace inventory_accounting
             }
             string text = tbx.Text;
             Discount.Text = (Convert.ToDouble(Count.Text) * item.SalePrice - Convert.ToDouble(text)).ToString();
+
+        }
+
+        private void NewLostFocus(object sender, RoutedEventArgs e)
+        {
+            if (item is null || !(sender is TextBox tbx))
+                return;
+            if (string.IsNullOrWhiteSpace(tbx.Text))
+                tbx.Text = "0";
 
         }
     }

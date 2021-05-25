@@ -22,24 +22,38 @@ namespace inventory_accounting
     {
         public Selection()
         {
-            InitializeComponent();
-            settings();
+            InitializeComponent();            
         }
-        private void settings()
+        public void settings(Database.Reports reports)
         {
-            find_selection.table.Columns[3].Visibility = Visibility.Collapsed;
+
+            if (reports == Database.Reports.Sales)
+            {
+                find_selection.table.Columns[3].Visibility = Visibility.Collapsed;               
+                find_selection.find_purchasePrice.Visibility = Visibility.Collapsed;
+
+                selection.table.Columns[3].Visibility = Visibility.Collapsed;               
+                selection.table.Columns[7].Visibility = Visibility.Collapsed;               
+                selection.find_purchasePrice.Visibility = Visibility.Collapsed;
+                
+            }
+            if (reports == Database.Reports.Entrance || reports==Database.Reports.Debiting)
+            {
+                selection.table.Columns[5].Visibility = Visibility.Collapsed;
+                selection.table.Columns[6].Visibility = Visibility.Collapsed;
+            }
+
             find_selection.table.Columns[5].Visibility = Visibility.Collapsed;
             find_selection.table.Columns[6].Visibility = Visibility.Collapsed;
             find_selection.table.Columns[7].Visibility = Visibility.Collapsed;
-            find_selection.find_purchasePrice.Visibility = Visibility.Collapsed;          
-
-            selection.table.Columns[3].Visibility = Visibility.Collapsed;
+            find_selection.table.Columns[8].Visibility = Visibility.Collapsed;
             selection.table.Columns[2].Header = "Кол-во";
-            selection.find_purchasePrice.Visibility = Visibility.Collapsed;
             selection.table.FontSize = 16;
-            
+
             //for (int i = 0; i < selection.table.Columns.Count; i++)
             //    selection.table.Columns[i].Width = DataGridLength.Auto;
         }
+
+        
     }
 }

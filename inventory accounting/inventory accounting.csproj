@@ -59,11 +59,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Report.xaml.cs">
+      <DependentUpon>Report.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Sales.xaml.cs">
       <DependentUpon>Sales.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SelectingPrice.xaml.cs">
+      <DependentUpon>SelectingPrice.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SelectingQuantity.xaml.cs">
       <DependentUpon>SelectingQuantity.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControll\BigTable.xaml.cs">
+      <DependentUpon>BigTable.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControll\Selection.xaml.cs">
       <DependentUpon>Selection.xaml</DependentUpon>
@@ -74,6 +83,10 @@
     <Compile Include="UserControll\Table.xaml.cs">
       <DependentUpon>Table.xaml</DependentUpon>
     </Compile>
+    <Page Include="Report.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -96,7 +109,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SelectingPrice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SelectingQuantity.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControll\BigTable.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -172,5 +193,6 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -27,6 +27,7 @@ namespace inventory_accounting
             table.table.Columns[5].Visibility = Visibility.Collapsed;
             table.table.Columns[6].Visibility = Visibility.Collapsed;
             table.table.Columns[7].Visibility = Visibility.Collapsed;
+            table.table.Columns[8].Visibility = Visibility.Collapsed;
             
         }
        

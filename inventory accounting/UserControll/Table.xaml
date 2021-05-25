@@ -11,7 +11,7 @@
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <DataGrid x:Name="table"  AutoGenerateColumns="False" Margin="30,30,30,0" FontSize="18" SelectionMode="Single" IsReadOnly="True">
+        <DataGrid x:Name="table"  AutoGenerateColumns="False" Margin="30,20,30,0" FontSize="18" SelectionMode="Single" IsReadOnly="True" Sorting="table_Sorting">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Код" Binding="{Binding Code}" Width="Auto" x:Name="dgCode"/>
                 <DataGridTextColumn Header="Наименование" Binding="{Binding Name}" Width="Auto" x:Name="dgName"/>
@@ -20,6 +20,7 @@
                 <DataGridTextColumn Header="Розница" Binding="{Binding SalePrice}" Width="*" x:Name="dgSalePrice" />
                 <DataGridTextColumn Header="Без скидки" Binding="{Binding Summ}" Width="*" x:Name="dgSumm" />
                 <DataGridTextColumn Header="Скидка" Binding="{Binding Discount}" Width="*" x:Name="dgDiscount" />
+                <DataGridTextColumn Header="Сумма(Закуп.)" Binding="{Binding SummPurchase}" Width="*" x:Name="dgSummPurchase" />
                 <DataGridTextColumn Header="Сумма" Binding="{Binding SummDiscount}" Width="*" x:Name="dgSummDiscount" />
             </DataGrid.Columns>
             <DataGrid.RowHeaderStyle>

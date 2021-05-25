@@ -26,6 +26,7 @@ namespace inventory_accounting
         public Table()
         {
             InitializeComponent();
+           
           
             
         }
@@ -186,6 +187,9 @@ namespace inventory_accounting
             return null;
         }
 
-       
+        private void table_Sorting(object sender, DataGridSortingEventArgs e)
+        {
+            //table.Items.Refresh();
+        }
     }
 }

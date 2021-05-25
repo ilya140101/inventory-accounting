@@ -21,32 +21,31 @@ namespace inventory_accounting
     {
         List<Product> Products;
         public double Summ { get; set; }
-        public bool flag = false;        
+        public bool flag = false;
         public List<Product> AddProducts;
-        public SelectionWindow(List<Product> Products)
+        public Database.Reports reports;
+        public SelectionWindow(List<Product> Products, Database.Reports reports)
         {
             InitializeComponent();
             this.Products = Products;
+            this.reports = reports;
             Summ = 0;
             Summ_TextBox.DataContext = Summ;
             Summ_TextBox.Text = Summ.ToString();
             AddProducts = new List<Product>();
             settings();
-            this.Closing += SelectionWindow_Closing;
-
         }
 
-        private void SelectionWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-           
-        }
+
 
         private void settings()
-        {           
+        {
             Selection.find_selection.setList(Products);
             Selection.find_selection.DClick += select;
             Selection.selection.KeyDeleted += deleted;
-            Selection.selection.setList(AddProducts);     
+            Selection.selection.setList(AddProducts);
+
+            Selection.settings(reports);
         }
         public void deleted(Object sender, KeyEventArgs e)
         {
@@ -55,35 +54,65 @@ namespace inventory_accounting
                 if (MessageBox.Show("Вы действительно хотите удалить элемент из таблицы?", "", MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.Yes)
                 {
                     var item = (sender as DataGridCell).DataContext as Product;
-                    Summ -= item.SummDiscount;
                     AddProducts.Remove(item);
+                    calculatingSumm();
                     Summ_TextBox.Text = Summ.ToString();
                     Selection.selection.table.Items.Refresh();
+                    Selection.selection.table.Items.SortDescriptions.Clear();
                 }
             }
-             
-            
-
+        }
+        public void calculatingSumm()
+        {
+            Summ = 0;
+            for (int i = 0; i < AddProducts.Count; i++)
+                if (reports == Database.Reports.Sales)
+                    Summ += AddProducts[i].SummDiscount;
+                else
+                    Summ += AddProducts[i].SummPurchase;
         }
 
-       
         public async void select(Object sender, RoutedEventArgs e)
         {
-
-            SelectingQuantity selecting = new SelectingQuantity((sender as DataGridCell).DataContext as Product);
-            selecting.ShowDialog();
-            if (selecting.flag)
+            if (reports == Database.Reports.Sales || reports==Database.Reports.Debiting)
             {
-                int code = selecting.item.Code;
-                int index = await Task.Run(()=>AddProducts.FindIndex(x => x.Code == selecting.item.Code));
-                if (index == -1)
-                    AddProducts.Add(selecting.item);
-                else
-                    AddProducts[index] += selecting.item;
-                Summ += selecting.item.SummDiscount;
-                Summ_TextBox.Text = Summ.ToString();
+                SelectingQuantity selecting = new SelectingQuantity((sender as DataGridCell).DataContext as Product);
+                selecting.ShowDialog();
+                if (selecting.flag)
+                {
+                    int code = selecting.item.Code;
+                    int index = await Task.Run(() => AddProducts.FindIndex(x => x.Code == selecting.item.Code));
+                    if (index == -1)
+                        AddProducts.Add(selecting.item);
+                    else
+                        AddProducts[index] += selecting.item;
+
+                }
+
             }
+            if (reports == Database.Reports.Entrance)
+            {
+                SelectingPrice selecting = new SelectingPrice((sender as DataGridCell).DataContext as Product);
+                selecting.ShowDialog();
+                if (selecting.flag)
+                {
+                    int code = selecting.item.Code;
+                    int index = await Task.Run(() => AddProducts.FindIndex(x => x.Code == selecting.item.Code));
+                    if (index == -1)
+                        AddProducts.Add(selecting.item);
+                    else
+                    {
+                        AddProducts[index] += selecting.item;
+                        AddProducts[index].PurchasePrice = selecting.item.PurchasePrice;
+                        AddProducts[index].SalePrice = selecting.item.SalePrice;
+                    }
+                }
+            }
+
+            calculatingSumm();
+            Summ_TextBox.Text = Summ.ToString();
             Selection.selection.table.Items.Refresh();
+            Selection.selection.table.Items.SortDescriptions.Clear();
 
         }
 

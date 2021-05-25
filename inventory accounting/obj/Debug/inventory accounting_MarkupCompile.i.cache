@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Ilya1\source\repos\inventory accounting\inventory accounting\App.xaml
-72079258678
+101994467078
 
-15156933976
+182142426316
 161951547161
-MainWindow.xaml;Nomenclature.xaml;Sales.xaml;SelectingQuantity.xaml;UserControll\Selection.xaml;SelectionWindow.xaml;UserControll\Table.xaml;
+Report.xaml;MainWindow.xaml;Nomenclature.xaml;Sales.xaml;SelectingPrice.xaml;SelectingQuantity.xaml;UserControll\BigTable.xaml;UserControll\Selection.xaml;SelectionWindow.xaml;UserControll\Table.xaml;
 
 True
 
