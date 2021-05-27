@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:inventory_accounting"
         mc:Ignorable="d"
-        Title="Entrance" Height="700" Width="1000">
+        Title="Entrance"  Loaded="Window_Loaded" Height="auto">
     <Grid>
-        <local:BigTable x:Name="BigTable" HorizontalAlignment="Left"  VerticalAlignment="Top" />
+        <local:BigTable x:Name="BigTable" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  />
 
     </Grid>
 </Window>

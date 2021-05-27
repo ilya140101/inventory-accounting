@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:inventory_accounting"
         mc:Ignorable="d"
-        Title="Подбор" Height="730" Width="1000">
+        Title="Подбор" Loaded="Window_Loaded" >
     <Grid>
-        <Button Content="Записать" HorizontalAlignment="Right" Margin="0,0,20,180" VerticalAlignment="Bottom" Width="143" Height="76" Click="Button_Click" FontSize="18"/>
-        <TextBlock x:Name="Summ_TextBox"   HorizontalAlignment="Right" Height="63" Margin="0,0,20,56" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="143" FontSize="18"/>
-        <TextBlock x:Name="Summ_TextBox_Copy" Text="Сумма:"  HorizontalAlignment="Right" Height="27" Margin="0,0,20,124" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="143" FontSize="18"/>
-        <local:Selection x:Name="Selection" Margin="0,0,0,10"/>
+        <Button Content="Записать" HorizontalAlignment="Right" Margin="0,0,20.333,114.333" VerticalAlignment="Bottom" Width="143" Height="76" Click="Button_Click" FontSize="18"/>
+        <TextBlock x:Name="Summ_TextBox"   HorizontalAlignment="Right" Height="63" Margin="0,0,20,0" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="143" FontSize="18"/>
+        <TextBlock x:Name="Summ_TextBox_Copy" Text="Сумма:"  HorizontalAlignment="Right" Height="27" Margin="0,0,20,60" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="143" FontSize="18"/>
+        <local:Selection x:Name="Selection"/>
     </Grid>
 </Window>

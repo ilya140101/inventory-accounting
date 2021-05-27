@@ -121,5 +121,13 @@ namespace inventory_accounting
             flag = true;
             this.Close();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            double _height = SystemParameters.PrimaryScreenHeight;
+            double _width = SystemParameters.PrimaryScreenWidth;
+            this.Height = 0.75 * _height;
+            this.Width = 0.75 * _width;
+        }
     }
 }

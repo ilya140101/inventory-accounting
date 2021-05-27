@@ -22,6 +22,10 @@ namespace inventory_accounting
         public Report(List<Product> Products, Database database, DateTime date, Database.Reports reports)
         {
             InitializeComponent();
+            //double _height = SystemParameters.PrimaryScreenHeight;
+            //double _width = SystemParameters.PrimaryScreenWidth;
+            //this.Height = 0.7 * _height;
+            //this.Width = 0.7 * _width;
             if (reports == Database.Reports.Entrance)
                 this.Title = "Поступление за ";
             if (reports == Database.Reports.Sales)
@@ -31,6 +35,15 @@ namespace inventory_accounting
 
             this.Title += date.ToShortDateString();
             BigTable.setList(Products, database, date, reports);
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            double _height = SystemParameters.PrimaryScreenHeight;
+            double _width = SystemParameters.PrimaryScreenWidth;
+            //this.BigTable.table.Height = 0.75 * Height;
+            this.Height = 0.75 *_height;
+            this.Width=0.75*_width;
         }
     }
 }
