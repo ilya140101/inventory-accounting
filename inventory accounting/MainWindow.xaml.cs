@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.OleDb;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,39 +29,55 @@ namespace inventory_accounting
     {
         public Database database;
         public Nomenclature nomenclature;
+        public ReportTable reportTable;
+
         public MainWindow()
         {
             InitializeComponent();
             this.Closing += MainWindow_Closing;
-            database = new Database();
+            try
+            {
+                database = new Database();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         private void MainWindow_Closing(object sender, CancelEventArgs e)
         {
-            //if (MessageBox.Show("Вы действительно хотите закрыть программу?", "", MessageBoxButton.YesNo, MessageBoxImage.Stop) == MessageBoxResult.Yes)
-            //{
-            //    Application.Current.Shutdown();
-            //}
-            //else
-            //    e.Cancel = true;
-            database.myConnection.Close();
-            Application.Current.Shutdown();
+            if (MessageBox.Show("Вы действительно хотите закрыть программу?", "", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                Application.Current.Shutdown();
+            }
+            else
+                e.Cancel = true;
+            //database.myConnection.Close();
+            //Application.Current.Shutdown();
 
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private  void loadingBase_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+
                 OpenFileDialog OPF = new OpenFileDialog();
+                Loading loading = new Loading();
                 OPF.Filter = "Excel Worksheets|*.xls*";
                 if (OPF.ShowDialog() == true)
                 {
-
                     try
                     {
-                        database.makeDataBase(OPF.FileName);
-
+                        loading.Show();
+                        if ((sender as MenuItem).Name == "Old")
+                             database.makeDataBase(OPF.FileName);
+                        else
+                            database.createNewDataBase(OPF.FileName);  
+                        string path = System.Reflection.Assembly.GetExecutingAssembly().Location;                       
+                        Process.Start(path);                      
+                        Process.GetCurrentProcess().Kill();
                     }
                     catch (Exception ex)
                     {
@@ -79,14 +96,7 @@ namespace inventory_accounting
 
             try
             {
-                //Запуск окна отчета
-                //DateTime date = DateTime.Now;
-                //Sales sales = new Sales(new List<Product>(), database, date);
-                //sales.Show();
 
-                DateTime date = DateTime.Now;
-                Report report = new Report(new List<Product>(), database, date, Database.Reports.Entrance);
-                report.Show();
 
             }
             catch (Exception ex)
@@ -103,10 +113,17 @@ namespace inventory_accounting
                 database.myConnection.Open();
                 string query = "DELETE FROM report";
                 OleDbCommand command = new OleDbCommand(query, database.myConnection);
-                await Task.Run(()=>command.ExecuteNonQuery());
+                await Task.Run(() => command.ExecuteNonQuery());
+
+                query = "DELETE FROM Allreport";
+                command = new OleDbCommand(query, database.myConnection);
+                await Task.Run(() => command.ExecuteNonQuery());
+
+
+
                 database.myConnection.Close();
                 MessageBox.Show("Готово");
-                
+
             }
             catch (Exception ex)
             {
@@ -120,7 +137,7 @@ namespace inventory_accounting
             {
                 if (this.nomenclature == null)
                 {
-                    nomenclature = new Nomenclature(database.Products);
+                    nomenclature = new Nomenclature(database);
                     nomenclature.Show();
                 }
                 else
@@ -135,29 +152,26 @@ namespace inventory_accounting
 
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+
+
+
+        private void Report_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                //Запуск окна отчета
-                DateTime date = DateTime.Now;
-                Report report = new Report(new List<Product>(), database, date, Database.Reports.Sales);
-                report.Show();
-
-
-
+                if (this.reportTable == null)
+                {
+                    reportTable = new ReportTable(database);
+                    reportTable.Show();
+                }
+                else
+                    reportTable.Focus();
+                this.reportTable.Closing += (ReportTable, args) => this.reportTable = null;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-        }
-
-        private void Button_Click_3(object sender, RoutedEventArgs e)
-        {
-            DateTime date = DateTime.Now;
-            Report report = new Report(new List<Product>(), database, date, Database.Reports.Debiting);
-            report.Show();
         }
     }
 }

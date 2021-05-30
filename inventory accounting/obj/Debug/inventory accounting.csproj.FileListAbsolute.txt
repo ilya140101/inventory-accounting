@@ -33,12 +33,9 @@ C:\Users\Ilya1\source\repos\inventory accounting\inventory accounting\obj\Debug\
 C:\Users\Ilya1\source\repos\inventory accounting\inventory accounting\obj\Debug\inventory accounting.csprojAssemblyReference.cache
 C:\Users\Ilya1\source\repos\inventory accounting\inventory accounting\obj\Debug\Report.g.cs
 C:\Users\Ilya1\source\repos\inventory accounting\inventory accounting\obj\Debug\Report.baml
-C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\inventory accounting.csproj.AssemblyReference.cache
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\inventory accounting.csproj.ResolveComReference.cache
-C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\Report.g.cs
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\MainWindow.g.cs
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\Nomenclature.g.cs
-C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\Sales.g.cs
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\SelectingPrice.g.cs
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\SelectingQuantity.g.cs
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\UserControll\BigTable.g.cs
@@ -54,10 +51,8 @@ C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\bin\Debug\inventory accounting.exe.config
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\bin\Debug\inventory accounting.exe
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\bin\Debug\inventory accounting.pdb
-C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\Report.baml
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\MainWindow.baml
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\Nomenclature.baml
-C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\Sales.baml
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\SelectingPrice.baml
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\SelectingQuantity.baml
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\UserControll\BigTable.baml
@@ -68,3 +63,14 @@ C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\inventory_accounting.Properties.Resources.resources
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\inventory accounting.csproj.GenerateResource.cache
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\inventory accounting.csproj.CoreCompileInputs.cache
+C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\inventory accounting.csprojAssemblyReference.cache
+C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\AddNewItem.g.cs
+C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\AddNewItem.baml
+C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\ReportWindow.g.cs
+C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\ReportTable.g.cs
+C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\ReportWindow.baml
+C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\ReportTable.baml
+C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\AddNewReport.g.cs
+C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\AddNewReport.baml
+C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\Loading.g.cs
+C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\Loading.baml

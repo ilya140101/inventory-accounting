@@ -1,13 +1,13 @@
-﻿<Window
+﻿<Window x:Class="inventory_accounting.Loading"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:inventory_accounting"
-        xmlns:UserControll="clr-namespace:inventory_accounting" x:Class="inventory_accounting.Sales"
         mc:Ignorable="d"
-        Title="Sales" Height="700" Width="1000">
+        Title="" Height="300" Width="300" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen"  WindowStyle="None">
     <Grid>
-        <local:BigTable x:Name="BigTable" HorizontalAlignment="Left"  Margin="10,10,0,0" VerticalAlignment="Top" />
+        <Label Content="Загрузка" HorizontalAlignment="Center" VerticalAlignment="Center" Height="110" FontSize="55" Width="232"/>
+
     </Grid>
 </Window>

@@ -17,24 +17,25 @@ namespace inventory_accounting
     /// <summary>
     /// Логика взаимодействия для Entrance.xaml
     /// </summary>
-    public partial class Report : Window
+    public partial class ReportWindow : Window
     {
-        public Report(List<Product> Products, Database database, DateTime date, Database.Reports reports)
+        Database database;
+        public ReportWindow( Database database, Report report)
         {
             InitializeComponent();
-            //double _height = SystemParameters.PrimaryScreenHeight;
-            //double _width = SystemParameters.PrimaryScreenWidth;
-            //this.Height = 0.7 * _height;
-            //this.Width = 0.7 * _width;
-            if (reports == Database.Reports.Entrance)
+            this.database = database;
+            if (report.ReportType == Database.Reports.Entrance)
+            {
                 this.Title = "Поступление за ";
-            if (reports == Database.Reports.Sales)
+               
+            }
+            if (report.ReportType == Database.Reports.Sales)
                 this.Title = "Отчет продаж за ";
-            if (reports == Database.Reports.Debiting)
+            if (report.ReportType == Database.Reports.Debiting)
                 this.Title = "Списание за ";
 
-            this.Title += date.ToShortDateString();
-            BigTable.setList(Products, database, date, reports);
+            this.Title += report.Date.ToShortDateString();
+            BigTable.setList(database,report);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -42,8 +43,10 @@ namespace inventory_accounting
             double _height = SystemParameters.PrimaryScreenHeight;
             double _width = SystemParameters.PrimaryScreenWidth;
             //this.BigTable.table.Height = 0.75 * Height;
-            this.Height = 0.75 *_height;
-            this.Width=0.75*_width;
+            //this.Height = 0.75 *_height;
+            //this.Width=0.75*_width;
         }
+
+       
     }
 }

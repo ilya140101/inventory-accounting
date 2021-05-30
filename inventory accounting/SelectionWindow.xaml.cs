@@ -19,16 +19,22 @@ namespace inventory_accounting
     /// </summary>
     public partial class SelectionWindow : Window
     {
-        List<Product> Products;
+
+        Database database;
+
         public double Summ { get; set; }
         public bool flag = false;
         public List<Product> AddProducts;
         public Database.Reports reports;
-        public SelectionWindow(List<Product> Products, Database.Reports reports)
+        public SelectionWindow(Database database, Database.Reports reports)
         {
             InitializeComponent();
-            this.Products = Products;
+
             this.reports = reports;
+            this.database = database;
+
+            if (reports == Database.Reports.Entrance)
+                Menu.Visibility = Visibility.Visible;
             Summ = 0;
             Summ_TextBox.DataContext = Summ;
             Summ_TextBox.Text = Summ.ToString();
@@ -36,11 +42,25 @@ namespace inventory_accounting
             settings();
         }
 
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            AddNewItem addNewItem = new AddNewItem(database);
+            addNewItem.ShowDialog();
+            if (addNewItem.flag)
+            {
+                database.addNewItem(addNewItem.item);
+                database.Products.Add(addNewItem.item);
+                database.Products.Sort((x, y) => x.Name.CompareTo(y.Name));
+                Selection.find_selection.table.Items.Refresh();
+                Selection.find_selection.table.ScrollIntoView(addNewItem.item);
+                Selection.find_selection.table.SelectedItem = addNewItem.item;
+            }
+        }
 
 
         private void settings()
         {
-            Selection.find_selection.setList(Products);
+            Selection.find_selection.setList(database.Products);
             Selection.find_selection.DClick += select;
             Selection.selection.KeyDeleted += deleted;
             Selection.selection.setList(AddProducts);
@@ -74,7 +94,7 @@ namespace inventory_accounting
 
         public async void select(Object sender, RoutedEventArgs e)
         {
-            if (reports == Database.Reports.Sales || reports==Database.Reports.Debiting)
+            if (reports == Database.Reports.Sales || reports == Database.Reports.Debiting)
             {
                 SelectingQuantity selecting = new SelectingQuantity((sender as DataGridCell).DataContext as Product);
                 selecting.ShowDialog();
@@ -126,8 +146,8 @@ namespace inventory_accounting
         {
             double _height = SystemParameters.PrimaryScreenHeight;
             double _width = SystemParameters.PrimaryScreenWidth;
-            this.Height = 0.75 * _height;
-            this.Width = 0.75 * _width;
+            //this.Height = 0.75 * _height;
+            //this.Width = 0.75 * _width;
         }
     }
 }

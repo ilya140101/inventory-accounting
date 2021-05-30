@@ -7,7 +7,11 @@
         mc:Ignorable="d"
         Title="Номенклатура" >
     <Grid>
+        <Menu x:Name="Menu" Height="25" VerticalAlignment="Top" FontSize="15">
+            <MenuItem Header="Добавление товара" Click="MenuItem_Click"/>
+        </Menu>
 
-        <local:Table x:Name="table"></local:Table>
+
+        <local:Table x:Name="table" Margin="0,33,0,0"></local:Table>
     </Grid>
 </Window>

@@ -5,32 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:inventory_accounting"
         mc:Ignorable="d"
-        Title="Главное окно" Height="450"
+        Title="Главное окно"
         WindowState="Maximized">
     <Grid>
 
-        <Menu Height="25" VerticalAlignment="Top" FontSize="15" Grid.ColumnSpan="2">
+        <Menu Height="25" VerticalAlignment="Top" FontSize="15">
             <MenuItem Header="База данных">
-                <MenuItem Header="Загрузить базу данных" Click="MenuItem_Click" ></MenuItem>
-                <MenuItem Header="Open Project"  >
-                    <MenuItem Header="WinForms"></MenuItem>
-                    <MenuItem Header="WPF" ></MenuItem>
+                <MenuItem Header="Загрузить базу данных" >
+                    <MenuItem x:Name="New" Header="Загрузить новую базу данных" Click="loadingBase_Click" ></MenuItem>
+                    <MenuItem x:Name="Old" Header="Добавить товары в текущую базу данных" Click="loadingBase_Click" ></MenuItem>
                 </MenuItem>
-                <Separator />
-                <MenuItem Header="Exit" ></MenuItem>
             </MenuItem>
             <MenuItem x:Name="Documents" Header="Документы" >
-                <MenuItem x:Name="Nomenclature2" Header="Номенклатура" Click="Nomenclature_Click" ></MenuItem>
+                <MenuItem Header="Общий журнал документов" Click="Report_Click"></MenuItem>
             </MenuItem>
             <MenuItem x:Name="Nomenclature" Header="Номенклатура" Click="Nomenclature_Click" ></MenuItem>
             <MenuItem Header="View" ></MenuItem>
         </Menu>
         <Button x:Name="but" Content="Поступление" HorizontalAlignment="Left" Margin="178,146,0,0" VerticalAlignment="Top" Width="272" Height="126" Click="Button_Click"/>
         <TextBox x:Name="lab" HorizontalAlignment="Left" Height="23" Margin="61,88,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
-        <ProgressBar x:Name="pg" HorizontalAlignment="Left" Height="25" Margin="99,319,0,0" VerticalAlignment="Top" Width="337" Minimum="0" Maximum="1000000"/>
+        <ProgressBar x:Name="pg" Height="25" Margin="0,0,0,0" VerticalAlignment="Bottom" Minimum="0" Maximum="10000"/>
         <Button Content="Очистка отчетов&#xD;&#xA;" HorizontalAlignment="Left" Margin="608,58,0,0" VerticalAlignment="Top" Width="118" Height="53" Click="Button_Click_1"/>
-        <Button Content="Отчет продаж&#xD;&#xA;" HorizontalAlignment="Left" Margin="517,163,0,0" VerticalAlignment="Top" Width="233" Height="72" Click="Button_Click_2"/>
-        <Button Content="Списание" HorizontalAlignment="Left" Margin="550,263,0,0" VerticalAlignment="Top" Width="175" Height="81" Click="Button_Click_3"/>
 
     </Grid>
 </Window>

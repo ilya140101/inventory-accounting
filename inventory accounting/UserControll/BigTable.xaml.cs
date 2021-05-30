@@ -20,24 +20,25 @@ namespace inventory_accounting
     /// </summary>
     public partial class BigTable : UserControl
     {
-        SelectionWindow selectionWindow;
+        public SelectionWindow selectionWindow;
         List<Product> Products;
-        Database database;
-        DateTime date;
+        Database database;        
         Database.Reports reports;
+        Report report;
+        int Number { get; set; }
         private double Summ { get; set; }
         public BigTable()
         {
             InitializeComponent();
 
         }
-        public void setList(List<Product> Products, Database database, DateTime date, Database.Reports reports)
-        {
-            this.Products = Products;
-            this.Products = Products;
+        public void setList( Database database, Report report)
+        {           
+            this.Products = report.Products;
             this.database = database;
-            this.date = date;
-            this.reports = reports;
+            this.Number = report.Number;
+            this.reports = report.ReportType;
+            this.report = report;
             table.setList(Products);
             table.table.Columns[2].Header = "Кол-во";
 
@@ -69,7 +70,7 @@ namespace inventory_accounting
         {
             if (this.selectionWindow == null)
             {
-                selectionWindow = new SelectionWindow(database.Products, reports);
+                selectionWindow = new SelectionWindow(database, reports);
                 selectionWindow.Show();
                 this.selectionWindow.Closing += SelectionWindow_Closing;
             }
@@ -83,7 +84,7 @@ namespace inventory_accounting
             {
                 var tmp = MessageBox.Show("Перенести отобранные позиции в отчет?", "", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
                 if (tmp == MessageBoxResult.Yes)
-                {
+                { 
                     this.selectionWindow.flag = true;
                 }
                 if (tmp == MessageBoxResult.Cancel)
@@ -106,19 +107,18 @@ namespace inventory_accounting
                         if (index == -1)
                         {
                             Products.Add(item);
-                            database.addReport(item, date, reports);
+                            database.addReport(item, Number, reports);
                         }
                         else
                         {
                             Products[index] += item;
                             Products[index].PurchasePrice = item.PurchasePrice;
                             Products[index].SalePrice = item.SalePrice;
-                            database.updateReport(Products[index], date, reports, item.Quantity);
+                            database.updateReport(Products[index], Number, reports, item.Quantity);
                         }
 
                     }
-                    calculatingSumm();
-                    Summ_TextBlock.Text = Summ.ToString();
+                   
                 }
                 finally
                 {
@@ -126,11 +126,21 @@ namespace inventory_accounting
                 }
 
             }
-            table.table.Items.Refresh();
-            table.table.Items.SortDescriptions.Clear();
+            update();
             this.selectionWindow = null;
-        }
 
+        }
+        public void update()
+        {
+            calculatingSumm();
+            report.Summ = Summ;
+            database.updateSumm(report);
+            Summ_TextBlock.Text = Summ.ToString();
+            table.table.Items.Refresh();
+            table.table.Items.SortDescriptions.Clear();            
+            
+
+        }
         public void deleted(Object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Delete || e.Key == Key.Back)
@@ -141,19 +151,21 @@ namespace inventory_accounting
                     try
                     {
                         database.myConnection.Open();
-                        database.deleteReport(item, date, Database.Reports.Sales);
+                        database.deleteReport(item, Number, Database.Reports.Sales);
                     }
                     finally
                     {
                         database.myConnection.Close();
                     }
                     Products.Remove(item);
-                    calculatingSumm();
-                    Summ_TextBlock.Text = Summ.ToString();
-                    table.table.Items.Refresh();
-                    table.table.Items.SortDescriptions.Clear();
+                    update();
                 }
             }
+        }
+
+        private void exit_Click(object sender, RoutedEventArgs e)
+        {
+            Window.GetWindow(this).Close();
         }
     }
 }

@@ -19,18 +19,34 @@ namespace inventory_accounting
     /// </summary>
     public partial class Nomenclature : Window
     {
-
-        public Nomenclature(List<Product> Products)
+        Database database;
+        public Nomenclature(Database database)
         {
-            InitializeComponent();          
-            table.setList(Products);
+            InitializeComponent();
+            this.database = database;
+            table.setList(database.Products);
             table.table.Columns[5].Visibility = Visibility.Collapsed;
             table.table.Columns[6].Visibility = Visibility.Collapsed;
             table.table.Columns[7].Visibility = Visibility.Collapsed;
             table.table.Columns[8].Visibility = Visibility.Collapsed;
-            
+
         }
-       
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            AddNewItem addNewItem = new AddNewItem(database);
+            addNewItem.ShowDialog();
+            if (addNewItem.flag)
+            {
+                database.addNewItem(addNewItem.item);
+                database.Products.Add(addNewItem.item);
+                database.Products.Sort((x, y) => x.Name.CompareTo(y.Name));
+                table.table.Items.Refresh();
+                table.table.ScrollIntoView(addNewItem.item);
+                table.table.SelectedItem = addNewItem.item;
+            }
+        }
+
+
 
     }
 }

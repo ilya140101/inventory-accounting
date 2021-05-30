@@ -10,15 +10,10 @@ namespace inventory_accounting
     public class Product
     {
 
-        private int code;
-        private string name;
-        private double quantity;
+      
         private double purchasePrice;
         private double salePrice;
-        private double summ;
-        private double summDiscount;
-        private double discount;
-        private double summPurchase;
+       
 
         public Product(int code, string name, double quantity, double purchasePrice, double salePrice, double discount = 0)
         {
