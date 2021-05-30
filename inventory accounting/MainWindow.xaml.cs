@@ -53,8 +53,7 @@ namespace inventory_accounting
             }
             else
                 e.Cancel = true;
-            //database.myConnection.Close();
-            //Application.Current.Shutdown();
+           
 
         }
 
@@ -91,46 +90,9 @@ namespace inventory_accounting
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
+      
 
-            try
-            {
-
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-        }
-
-        private async void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                database.myConnection.Open();
-                string query = "DELETE FROM report";
-                OleDbCommand command = new OleDbCommand(query, database.myConnection);
-                await Task.Run(() => command.ExecuteNonQuery());
-
-                query = "DELETE FROM Allreport";
-                command = new OleDbCommand(query, database.myConnection);
-                await Task.Run(() => command.ExecuteNonQuery());
-
-
-
-                database.myConnection.Close();
-                MessageBox.Show("Готово");
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-        }
+      
         private void Nomenclature_Click(object sender, RoutedEventArgs e)
         {
             try

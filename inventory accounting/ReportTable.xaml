@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:inventory_accounting"
         mc:Ignorable="d"
-        Title="Общий журнал документов" Width="1000" Height="700" FontSize="18">
+        Title="Общий журнал документов"  FontSize="18">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>

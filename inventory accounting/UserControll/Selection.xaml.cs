@@ -50,8 +50,7 @@ namespace inventory_accounting
             selection.table.Columns[2].Header = "Кол-во";
             selection.table.FontSize = 16;
 
-            //for (int i = 0; i < selection.table.Columns.Count; i++)
-            //    selection.table.Columns[i].Width = DataGridLength.Auto;
+           
         }
 
         

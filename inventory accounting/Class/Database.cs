@@ -101,12 +101,8 @@ namespace inventory_accounting
                     command.Parameters.AddWithValue("n_name", excelcells2.Value2);
                     command.Parameters.AddWithValue("Quantity", excelcells3.Value2);
                     command.Parameters.AddWithValue("PurchasePrice", excelcells4.Value2);
-                    command.Parameters.AddWithValue("SalePrice", excelcells5.Value2);
-                    //if (Products.FindIndex((x) => x.Code == Convert.ToInt32(excelcells1.Value2)) != -1)
-                    //    Console.WriteLine(excelcells1.Value2);
-                    //Console.WriteLine(i);
-                    Products.Add(new Product(Convert.ToInt32(excelcells1.Value2), null, 0, 0, 0));         
-                     command.ExecuteNonQuery();                 
+                    command.Parameters.AddWithValue("SalePrice", excelcells5.Value2);                             
+                    command.ExecuteNonQuery();                 
 
                 }
                 catch(Exception ex)
