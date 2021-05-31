@@ -74,3 +74,6 @@ C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\AddNewReport.baml
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\Loading.g.cs
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\Loading.baml
+C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\bin\Debug\Topshelf.xml
+C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\inventory accounting.csproj.CopyComplete
+C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll

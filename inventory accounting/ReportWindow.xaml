@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:inventory_accounting"
         mc:Ignorable="d"
-        Title="Entrance"  Loaded="Window_Loaded"  >
+        Title="Entrance"  Loaded="Window_Loaded">
     <Grid>
         
         <local:BigTable x:Name="BigTable" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="0,30,0,0"  />

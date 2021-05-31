@@ -1,23 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data.OleDb;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using inventory_accounting;
 using Microsoft.Win32;
-
 
 
 namespace inventory_accounting
@@ -34,6 +22,8 @@ namespace inventory_accounting
         public MainWindow()
         {
             InitializeComponent();
+           this.Icon = new BitmapImage(new Uri("../../Images/icon.ico", UriKind.Relative));
+            
             this.Closing += MainWindow_Closing;
             try
             {
@@ -53,11 +43,11 @@ namespace inventory_accounting
             }
             else
                 e.Cancel = true;
-           
+
 
         }
 
-        private  void loadingBase_Click(object sender, RoutedEventArgs e)
+        private void loadingBase_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -71,11 +61,11 @@ namespace inventory_accounting
                     {
                         loading.Show();
                         if ((sender as MenuItem).Name == "Old")
-                             database.makeDataBase(OPF.FileName);
+                            database.makeDataBase(OPF.FileName);
                         else
-                            database.createNewDataBase(OPF.FileName);  
-                        string path = System.Reflection.Assembly.GetExecutingAssembly().Location;                       
-                        Process.Start(path);                      
+                            database.createNewDataBase(OPF.FileName);
+                        string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
+                        Process.Start(path);
                         Process.GetCurrentProcess().Kill();
                     }
                     catch (Exception ex)
@@ -90,9 +80,9 @@ namespace inventory_accounting
             }
         }
 
-      
 
-      
+
+
         private void Nomenclature_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -134,6 +124,24 @@ namespace inventory_accounting
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+           
+
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Process p = Process.Start("calc.exe");
+            p.WaitForInputIdle();
+        }
+
+       
+        private void MenuItem_Loaded(object sender, RoutedEventArgs e)
+        {
+            MyCalandar.DisplayDate = DateTime.Now;
         }
     }
 }

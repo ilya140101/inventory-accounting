@@ -36,6 +36,15 @@ namespace inventory_accounting
 
             this.Title += report.Date.ToShortDateString();
             BigTable.setList(database,report);
+
+            switch (report.ReportType)
+            {
+                case Database.Reports.Sales: Icon = database.Sales_Image;break;
+                case Database.Reports.Entrance: Icon = database.Entrance_Image;break;
+                case Database.Reports.Debiting: Icon = database.Debiting_Image;break;
+            }
+
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

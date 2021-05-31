@@ -23,7 +23,6 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>               
-                <DataGridTextColumn Header="№" Binding="{Binding Number}" Width="50" x:Name="dgNumber"/>
                 <DataGridTextColumn Header="Документ" Binding="{Binding ReportTypeString}" Width="*" x:Name="dgReportType"/>
                 <DataGridTextColumn Header="Дата" Binding="{Binding DateString}" Width="*" x:Name="dgDate"/>
                 <DataGridTextColumn Header="Сумма" Binding="{Binding Summ}" Width="*" x:Name="dgSumm" />                
@@ -46,7 +45,7 @@
                 </Style>
             </DataGrid.Resources>
         </DataGrid>
-        <Button Content="Закрыть" HorizontalAlignment="Left" Margin="30,591,0,0" VerticalAlignment="Top" Width="144" Height="58" Click="Button_Click"/>
+        <Button Content="Закрыть" HorizontalAlignment="Left" Margin="30,0,0,20" VerticalAlignment="Bottom" Width="144" Height="58" Click="Button_Click"/>
 
 
     </Grid>

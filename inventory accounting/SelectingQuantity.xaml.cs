@@ -58,7 +58,12 @@ namespace inventory_accounting
         {
             if (string.IsNullOrWhiteSpace(Count.Text))
                 Button_Click(sender, e);
-
+            if (Convert.ToDouble(Count.Text)> item.Quantity)
+            {
+                MessageBox.Show("Кол-во товара не может привышать остаток на складе.", "" , MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            
             item = new Product(item.Code, item.Name, Convert.ToDouble(Count.Text), item.PurchasePrice, item.SalePrice, Convert.ToDouble(Discount.Text));
             flag = true;
             this.Close();

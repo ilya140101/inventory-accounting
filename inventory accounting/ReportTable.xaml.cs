@@ -23,6 +23,7 @@ namespace inventory_accounting
         public ReportTable(Database database)
         {
             InitializeComponent();
+            this.Icon = new BitmapImage(new Uri("../../Images/books.png", UriKind.Relative));
             this.database = database;
             table.ItemsSource = database.Report;
         }

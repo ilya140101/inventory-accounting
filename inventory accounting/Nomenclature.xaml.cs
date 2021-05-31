@@ -29,6 +29,7 @@ namespace inventory_accounting
             table.table.Columns[6].Visibility = Visibility.Collapsed;
             table.table.Columns[7].Visibility = Visibility.Collapsed;
             table.table.Columns[8].Visibility = Visibility.Collapsed;
+            this.Icon = new BitmapImage(new Uri("../../Images/nom.png", UriKind.Relative));
 
         }
         private void MenuItem_Click(object sender, RoutedEventArgs e)

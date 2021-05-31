@@ -127,9 +127,9 @@ namespace inventory_accounting
             loadingProducts();
             try
             {
-                Sales_Image = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + "/image/icon/Sales.png"));
-                Entrance_Image = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + "/image/icon/Entrance.jpg"));
-                Debiting_Image = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + "/image/icon/Debiting.jpg"));
+                Sales_Image = new BitmapImage(new Uri("Images/Sales.png", UriKind.Relative));
+                Entrance_Image = new BitmapImage(new Uri("Images/Entrance.jpg", UriKind.Relative));
+                Debiting_Image = new BitmapImage(new Uri("Images/Debiting.jpg", UriKind.Relative));
 
             }
             catch

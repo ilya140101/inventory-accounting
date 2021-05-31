@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="Главное окно">
     <Grid>
-
-        <Menu Height="25" VerticalAlignment="Top" FontSize="15">
+        
+        <Menu Height="30" VerticalAlignment="Top" FontSize="18" Grid.ColumnSpan="2">
             <MenuItem Header="База данных">
                 <MenuItem Header="Загрузить базу данных" >
                     <MenuItem x:Name="New" Header="Загрузить новую базу данных" Click="loadingBase_Click" ></MenuItem>
@@ -16,11 +16,31 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem x:Name="Documents" Header="Документы" >
-                <MenuItem Header="Общий журнал документов" Click="Report_Click"></MenuItem>
+                <MenuItem Height="30" Header="Общий журнал документов" Click="Report_Click">
+                    <MenuItem.Icon>
+                        <Image   Source="Images/books.png" Margin="-5,-10,-11,-12" ></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
             <MenuItem x:Name="Nomenclature" Header="Номенклатура" Click="Nomenclature_Click" ></MenuItem>
+            <MenuItem  Header="Служебные" >
+                <MenuItem Height="30"  Header="Калькулятор" Click="MenuItem_Click"  >
+                    <MenuItem.Icon>
+                        <Image  Source="Images/calc.png" Margin="-3,-6,-10,-4" ></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+
+                <MenuItem Height="30" Header="Календарь" Loaded="MenuItem_Loaded" >
+                    <Calendar x:Name="MyCalandar" >
+                        
+                    </Calendar>
+                    <MenuItem.Icon>
+                        <Image  Source="Images/calendar.png" Margin="-6,-6,-11,-7" ></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
         </Menu>
-        <ProgressBar x:Name="pg" Height="25" Margin="0,0,0,0" VerticalAlignment="Bottom" Minimum="0" Maximum="10000"/>
+        <Menu VerticalAlignment="Bottom" Height="25" Background="#FF8F8F8F" Grid.ColumnSpan="2"></Menu>
 
     </Grid>
 </Window>
