@@ -1,18 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
+using inventory_accounting_Library;
 namespace inventory_accounting
 {
     /// <summary>
@@ -58,12 +49,12 @@ namespace inventory_accounting
         {
             if (string.IsNullOrWhiteSpace(Count.Text))
                 Button_Click(sender, e);
-            if (Convert.ToDouble(Count.Text)> item.Quantity)
+            if (Convert.ToDouble(Count.Text) > item.Quantity)
             {
-                MessageBox.Show("Кол-во товара не может привышать остаток на складе.", "" , MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Кол-во товара не может привышать остаток на складе.", "", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-            
+
             item = new Product(item.Code, item.Name, Convert.ToDouble(Count.Text), item.PurchasePrice, item.SalePrice, Convert.ToDouble(Discount.Text));
             flag = true;
             this.Close();
@@ -88,8 +79,6 @@ namespace inventory_accounting
             }
             string text = tbx.Text;
             Summ.Text = (Convert.ToDouble(Count.Text) * item.SalePrice - Convert.ToDouble(text)).ToString();
-
-
         }
 
         private void Summ_TextChanged(object sender, TextChangedEventArgs e)
@@ -103,7 +92,6 @@ namespace inventory_accounting
             }
             string text = tbx.Text;
             Discount.Text = (Convert.ToDouble(Count.Text) * item.SalePrice - Convert.ToDouble(text)).ToString();
-
         }
 
         private void NewLostFocus(object sender, RoutedEventArgs e)
@@ -112,7 +100,6 @@ namespace inventory_accounting
                 return;
             if (string.IsNullOrWhiteSpace(tbx.Text))
                 tbx.Text = "0";
-
         }
     }
 }

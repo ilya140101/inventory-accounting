@@ -1,18 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
+using inventory_accounting_Library;
 namespace inventory_accounting
 {
     /// <summary>
@@ -44,9 +35,6 @@ namespace inventory_accounting
             Regex regex = new Regex("[^0-9,]+");
             e.Handled = regex.IsMatch(e.Text);
         }
-
-
-
         private void OK_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(Count.Text))
@@ -55,7 +43,6 @@ namespace inventory_accounting
             flag = true;
             this.Close();
         }
-
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -63,7 +50,6 @@ namespace inventory_accounting
             if (e.Key == Key.Escape)
                 Button_Click(sender, e);
         }
-
         private void Sale_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (item is null || !(sender is TextBox tbx) || string.IsNullOrWhiteSpace(Purchase.Text) || !Sale.IsFocused)
@@ -79,7 +65,6 @@ namespace inventory_accounting
             Profit.Text = String.Format("{0:0.00}", ((sale - purchase) / purchase * 100)) + "%";
 
         }
-
         private void Profit_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (item is null || !(sender is TextBox tbx) || !Profit.IsFocused || Profit.Text.StartsWith("%"))
@@ -90,12 +75,9 @@ namespace inventory_accounting
                 return;
             }
             string text = Profit.Text;
-
-
             Sale.Text = String.Format("{0:0.00}", (Convert.ToDouble(Purchase.Text) * (1 + Convert.ToDouble(Profit.Text.Replace("%", "")) / 100)));
 
         }
-
         private void Purchase_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (item is null || !(sender is TextBox tbx))

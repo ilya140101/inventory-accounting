@@ -11,8 +11,13 @@
             <MenuItem Header="Добавление товара" Click="MenuItem_Click"/>
         </Menu>
         <Button Content="Записать" HorizontalAlignment="Right" Margin="0,0,20.333,114.333" VerticalAlignment="Bottom" Width="143" Height="76" Click="Button_Click" FontSize="18"/>
-        <TextBlock x:Name="Summ_TextBox"   HorizontalAlignment="Right" Height="63" Margin="0,0,20,0" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="143" FontSize="18"/>
-        <TextBlock x:Name="Summ_TextBox_Copy" Text="Сумма:"  HorizontalAlignment="Right" Height="27" Margin="0,0,20,60" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="143" FontSize="18"/>
+        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,0,40" Height="auto" Width="184">
+            <TextBlock x:Name="Summ_TextBox_Copy" Text="Сумма:"  HorizontalAlignment="Left" Height="27" TextWrapping="Wrap" VerticalAlignment="Bottom" FontSize="18"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="Summ_TextBox"  Text="123"  HorizontalAlignment="Left" Height="auto"  TextWrapping="Wrap" VerticalAlignment="Bottom" Width="auto" FontSize="18"/>
+                <TextBlock  Text=" руб."  HorizontalAlignment="Left" Height="auto"  TextWrapping="Wrap" VerticalAlignment="Bottom" Width="auto" FontSize="18"/>
+            </StackPanel>
+        </StackPanel>
         <local:Selection x:Name="Selection" />
     </Grid>
 </Window>

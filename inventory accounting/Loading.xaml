@@ -8,6 +8,7 @@
         Title="" Height="300" Width="300" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen"  WindowStyle="None">
     <Grid>
         <Label Content="Загрузка" HorizontalAlignment="Center" VerticalAlignment="Center" Height="110" FontSize="55" Width="232"/>
+        <ProgressBar x:Name="pg" IsIndeterminate="True" HorizontalAlignment="Stretch"  Height="20"  VerticalAlignment="Center" Margin="10,201,10,71" />
 
     </Grid>
 </Window>

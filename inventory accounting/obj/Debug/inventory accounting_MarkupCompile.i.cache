@@ -1,7 +1,7 @@
 ﻿inventory accounting
 
 
-exe
+winexe
 C#
 .cs
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\
@@ -12,8 +12,8 @@ DEBUG;TRACE
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\App.xaml
 131728652054
 
-21-1885800825
-211852973786
+181456888933
+221164460958
 AddNewItem.xaml;AddNewReport.xaml;Loading.xaml;ReportWindow.xaml;MainWindow.xaml;Nomenclature.xaml;ReportTable.xaml;SelectingPrice.xaml;SelectingQuantity.xaml;UserControll\BigTable.xaml;UserControll\Selection.xaml;SelectionWindow.xaml;UserControll\Table.xaml;
 
 False

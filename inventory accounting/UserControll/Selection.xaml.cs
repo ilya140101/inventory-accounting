@@ -1,18 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
+using inventory_accounting_Library;
 namespace inventory_accounting
 {
     /// <summary>
@@ -33,7 +21,8 @@ namespace inventory_accounting
                 find_selection.find_purchasePrice.Visibility = Visibility.Collapsed;
 
                 selection.table.Columns[3].Visibility = Visibility.Collapsed;               
-                selection.table.Columns[7].Visibility = Visibility.Collapsed;               
+                selection.table.Columns[7].Visibility = Visibility.Collapsed;
+                selection.find_SummPurchase.Visibility = Visibility.Collapsed;
                 selection.find_purchasePrice.Visibility = Visibility.Collapsed;
                 
             }
@@ -41,12 +30,19 @@ namespace inventory_accounting
             {
                 selection.table.Columns[5].Visibility = Visibility.Collapsed;
                 selection.table.Columns[6].Visibility = Visibility.Collapsed;
+                selection.find_Discount.Visibility = Visibility.Collapsed;
+                selection.find_Summ.Visibility = Visibility.Collapsed;
             }
 
-            find_selection.table.Columns[5].Visibility = Visibility.Collapsed;
+            find_selection.table.Columns[5].Visibility = Visibility.Collapsed;       
             find_selection.table.Columns[6].Visibility = Visibility.Collapsed;
             find_selection.table.Columns[7].Visibility = Visibility.Collapsed;
             find_selection.table.Columns[8].Visibility = Visibility.Collapsed;
+            find_selection.find_Discount.Visibility = Visibility.Collapsed;
+            find_selection.find_Summ.Visibility = Visibility.Collapsed;
+            find_selection.find_SummDiscount.Visibility = Visibility.Collapsed;          
+            find_selection.find_SummPurchase.Visibility = Visibility.Collapsed;
+
             selection.table.Columns[2].Header = "Кол-во";
             selection.table.FontSize = 16;
 

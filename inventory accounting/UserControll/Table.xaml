@@ -11,7 +11,7 @@
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <DataGrid x:Name="table"  AutoGenerateColumns="False" Margin="30,20,30,0" FontSize="18" SelectionMode="Single" IsReadOnly="True" Sorting="table_Sorting">
+        <DataGrid x:Name="table"  AutoGenerateColumns="False" Margin="30,20,30,0" FontSize="18" SelectionMode="Single" IsReadOnly="True" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Код" Binding="{Binding Code}" Width="Auto" x:Name="dgCode"/>
                 <DataGridTextColumn Header="Наименование" Binding="{Binding Name}" Width="Auto" x:Name="dgName"/>
@@ -42,11 +42,15 @@
             </DataGrid.Resources>
         </DataGrid>
         <StackPanel Grid.Row="1" Margin="30,10" Orientation="Horizontal">
-            <TextBox x:Name="find_code"  Text="Код" Width="{Binding ActualWidth,ElementName=dgCode}" FontSize="18" TextChanged="Find_code_TextChanged" GotFocus="Find_GotFocus" LostFocus="Find_LostFocus" />
+            <TextBox x:Name="find_code"  Text="Код" Width="{Binding ActualWidth,ElementName=dgCode}" FontSize="18" TextChanged="Find_TextChanged" GotFocus="Find_GotFocus" LostFocus="Find_LostFocus" />
             <TextBox x:Name="find_name"  Text="Наименование" Width="{Binding ActualWidth,ElementName=dgName}" FontSize="18" TextChanged="Find_name_TextChanged" GotFocus="Find_GotFocus" LostFocus="Find_LostFocus"/>
-            <TextBox x:Name="find_quantity"  Text="Количество" Width="{Binding ActualWidth,ElementName=dgQuantity}" FontSize="18" TextChanged="Find_quantity_TextChanged" GotFocus="Find_GotFocus" LostFocus="Find_LostFocus"/>
-            <TextBox x:Name="find_purchasePrice"  Text="Закупка" Width="{Binding ActualWidth,ElementName=dgPurchasePrice}" FontSize="18" TextChanged="Find_purchasePrice_TextChanged" GotFocus="Find_GotFocus" LostFocus="Find_LostFocus"/>
-            <TextBox x:Name="find_salePrice"  Text="Розница" Width="{Binding ActualWidth,ElementName=dgSalePrice}" FontSize="18" TextChanged="Find_salePrice_TextChanged" GotFocus="Find_GotFocus" LostFocus="Find_LostFocus"/>
+            <TextBox x:Name="find_quantity"  Text="Количество" Width="{Binding ActualWidth,ElementName=dgQuantity}" FontSize="18" TextChanged="Find_TextChanged" GotFocus="Find_GotFocus" LostFocus="Find_LostFocus"/>
+            <TextBox x:Name="find_purchasePrice"  Text="Закупка" Width="{Binding ActualWidth,ElementName=dgPurchasePrice}" FontSize="18" TextChanged="Find_TextChanged" GotFocus="Find_GotFocus" LostFocus="Find_LostFocus"/>
+            <TextBox x:Name="find_salePrice"  Text="Розница" Width="{Binding ActualWidth,ElementName=dgSalePrice}" FontSize="18" TextChanged="Find_TextChanged" GotFocus="Find_GotFocus" LostFocus="Find_LostFocus"/>
+            <TextBox x:Name="find_Summ"  Text="Без скидки" Width="{Binding ActualWidth,ElementName=dgSumm}" FontSize="18" TextChanged="Find_TextChanged" GotFocus="Find_GotFocus" LostFocus="Find_LostFocus"/>
+            <TextBox x:Name="find_Discount"  Text="Скидка" Width="{Binding ActualWidth,ElementName=dgDiscount}" FontSize="18" TextChanged="Find_TextChanged" GotFocus="Find_GotFocus" LostFocus="Find_LostFocus"/>
+            <TextBox x:Name="find_SummPurchase"  Text="Сумма(Закуп.)" Width="{Binding ActualWidth,ElementName=dgSummPurchase}" FontSize="18" TextChanged="Find_TextChanged" GotFocus="Find_GotFocus" LostFocus="Find_LostFocus"/>
+            <TextBox x:Name="find_SummDiscount"  Text="Сумма" Width="{Binding ActualWidth,ElementName=dgSummDiscount}" FontSize="18" TextChanged="Find_TextChanged" GotFocus="Find_GotFocus" LostFocus="Find_LostFocus"/>
         </StackPanel>
     </Grid>
 </UserControl>

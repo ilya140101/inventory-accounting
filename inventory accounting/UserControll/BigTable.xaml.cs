@@ -1,18 +1,11 @@
-﻿using System;
+﻿using inventory_accounting_Library;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
 namespace inventory_accounting
 {
     /// <summary>
@@ -21,10 +14,10 @@ namespace inventory_accounting
     public partial class BigTable : UserControl
     {
         public SelectionWindow selectionWindow;
-        List<Product> Products;
-        Database database;        
-        Database.Reports reports;
-        Report report;
+        private List<Product> Products;
+        private Database database;
+        private Database.Reports reports;
+        private Report report;
         int Number { get; set; }
         private double Summ { get; set; }
         public BigTable()
@@ -51,6 +44,8 @@ namespace inventory_accounting
             {
                 table.table.Columns[5].Visibility = Visibility.Collapsed;
                 table.table.Columns[6].Visibility = Visibility.Collapsed;
+                table.find_Summ.Visibility = Visibility.Collapsed;
+                table.find_Discount.Visibility = Visibility.Collapsed;
             }
             table.KeyDeleted += deleted;
             calculatingSumm();
@@ -71,7 +66,7 @@ namespace inventory_accounting
             if (this.selectionWindow == null)
             {
                 selectionWindow = new SelectionWindow(database, reports);
-                selectionWindow.Show();
+                selectionWindow.Show();                
                 this.selectionWindow.Closing += SelectionWindow_Closing;
             }
             else
@@ -120,6 +115,14 @@ namespace inventory_accounting
                     }
                    
                 }
+                catch(Exception ex)
+                {
+                    string writePath = "log.txt";
+                    using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
+                    {
+                        sw.WriteLine(ex.Message);
+                    }
+                }
                 finally
                 {
                     database.myConnection.Close();
@@ -137,9 +140,7 @@ namespace inventory_accounting
             database.updateSumm(report);
             Summ_TextBlock.Text = Summ.ToString();
             table.table.Items.Refresh();
-            table.table.Items.SortDescriptions.Clear();            
-            
-
+            table.table.Items.SortDescriptions.Clear();    
         }
         public void deleted(Object sender, KeyEventArgs e)
         {
@@ -153,6 +154,14 @@ namespace inventory_accounting
                         database.myConnection.Open();
                         database.deleteReport(item, Number, Database.Reports.Sales);
                     }
+                    catch(Exception ex)
+                    {
+                        string writePath = "log.txt";
+                        using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
+                        {
+                            sw.WriteLine(ex.Message);
+                        }
+                    }
                     finally
                     {
                         database.myConnection.Close();
@@ -162,7 +171,6 @@ namespace inventory_accounting
                 }
             }
         }
-
         private void exit_Click(object sender, RoutedEventArgs e)
         {
             Window.GetWindow(this).Close();

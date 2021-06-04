@@ -10,8 +10,8 @@
         <Grid  Height="145"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Margin="60,87,34,89">
             <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Количество:" VerticalAlignment="Top" Height="25" Width="102"/>
             <TextBlock HorizontalAlignment="Left" Margin="10,40,0,0" TextWrapping="Wrap" Text="Цена:" VerticalAlignment="Top" Height="25" Width="87"/>
-            <TextBlock HorizontalAlignment="Left" Margin="10,70,0,0" TextWrapping="Wrap" Text="Скидка:" VerticalAlignment="Top" Height="25" Width="87"/>
-            <TextBlock HorizontalAlignment="Left" Margin="10,110,0,0" TextWrapping="Wrap" Text="Сумма:" VerticalAlignment="Top" Height="25" Width="87"/>
+            <TextBlock x:Name="Discount_text" HorizontalAlignment="Left" Margin="10,70,0,0" TextWrapping="Wrap" Text="Скидка:" VerticalAlignment="Top" Height="25" Width="87"/>
+            <TextBlock x:Name="Summ_text" HorizontalAlignment="Left" Margin="10,110,0,0" TextWrapping="Wrap" Text="Сумма:" VerticalAlignment="Top" Height="25" Width="87"/>
 
             <TextBlock x:Name="SalePrice" HorizontalAlignment="Left" Margin="170,40,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="25" Width="120"/>
             <TextBox x:Name="Count" PreviewTextInput="NumberValidationTextBox" HorizontalAlignment="Left" Height="25" Margin="170,10,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120" TextChanged="Count_TextChanged" LostFocus="NewLostFocus"/>

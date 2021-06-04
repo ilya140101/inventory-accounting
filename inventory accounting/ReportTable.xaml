@@ -24,6 +24,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>               
                 <DataGridTextColumn Header="Документ" Binding="{Binding ReportTypeString}" Width="*" x:Name="dgReportType"/>
+                <DataGridTextColumn Header="№" Binding="{Binding Number}" Width="*"/>
                 <DataGridTextColumn Header="Дата" Binding="{Binding DateString}" Width="*" x:Name="dgDate"/>
                 <DataGridTextColumn Header="Сумма" Binding="{Binding Summ}" Width="*" x:Name="dgSumm" />                
             </DataGrid.Columns>
@@ -36,6 +37,7 @@
                 <Style TargetType="{x:Type DataGridCell}">
                     <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
                     <EventSetter Event="KeyDown" Handler="Row_KeyDown"/>
+
                     <Style.Triggers>
                         <Trigger Property="IsSelected" Value="True" >
                             <Setter Property="Background" Value="#CCDAFF" />

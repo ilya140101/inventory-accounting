@@ -1,16 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using inventory_accounting_Library;
 
 namespace inventory_accounting
 {
@@ -37,9 +31,9 @@ namespace inventory_accounting
                 Menu.Visibility = Visibility.Visible;
             Summ = 0;
             Summ_TextBox.DataContext = Summ;
-            Summ_TextBox.Text = Summ.ToString();
             AddProducts = new List<Product>();
             settings();
+            update();
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -67,6 +61,13 @@ namespace inventory_accounting
 
             Selection.settings(reports);
         }
+        private void update()
+        {
+            calculatingSumm();
+            Summ_TextBox.Text = Summ.ToString();
+            Selection.selection.table.Items.Refresh();
+            Selection.selection.table.Items.SortDescriptions.Clear();
+        }
         public void deleted(Object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Delete || e.Key == Key.Back)
@@ -75,10 +76,7 @@ namespace inventory_accounting
                 {
                     var item = (sender as DataGridCell).DataContext as Product;
                     AddProducts.Remove(item);
-                    calculatingSumm();
-                    Summ_TextBox.Text = Summ.ToString();
-                    Selection.selection.table.Items.Refresh();
-                    Selection.selection.table.Items.SortDescriptions.Clear();
+                    update();
                 }
             }
         }
@@ -97,6 +95,13 @@ namespace inventory_accounting
             if (reports == Database.Reports.Sales || reports == Database.Reports.Debiting)
             {
                 SelectingQuantity selecting = new SelectingQuantity((sender as DataGridCell).DataContext as Product);
+                if (reports == Database.Reports.Debiting)
+                {
+                    selecting.Discount_text.Visibility = Visibility.Collapsed;
+                    selecting.Discount.Visibility = Visibility.Collapsed;
+                    selecting.Summ.Visibility = Visibility.Collapsed;
+                    selecting.Summ_text.Visibility = Visibility.Collapsed;
+                }
                 selecting.ShowDialog();
                 if (selecting.flag)
                 {
@@ -106,7 +111,6 @@ namespace inventory_accounting
                         AddProducts.Add(selecting.item);
                     else
                         AddProducts[index] += selecting.item;
-
                 }
 
             }
@@ -128,14 +132,8 @@ namespace inventory_accounting
                     }
                 }
             }
-
-            calculatingSumm();
-            Summ_TextBox.Text = Summ.ToString();
-            Selection.selection.table.Items.Refresh();
-            Selection.selection.table.Items.SortDescriptions.Clear();
-
+            update();
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             flag = true;

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
-
+using inventory_accounting_Library;
+using System.IO;
+using System.Threading;
 
 namespace inventory_accounting
 {
@@ -15,15 +16,24 @@ namespace inventory_accounting
     /// </summary>
     public partial class MainWindow : Window
     {
-        public Database database;
-        public Nomenclature nomenclature;
-        public ReportTable reportTable;
+        public Database database { get; set; }
+        public Nomenclature nomenclature { get; set; }
+        public ReportTable reportTable { get; set; }
+        public Loading loading { get; set; }
+        private string path;
+        private bool addNew;//true- новая БД, false- добавление к старой 
 
         public MainWindow()
         {
             InitializeComponent();
-           this.Icon = new BitmapImage(new Uri("../../Images/icon.ico", UriKind.Relative));
-            
+            string path = @"../../Manual.txt";
+            using (StreamReader sr = new StreamReader(path))
+            {
+                Manual.Text = sr.ReadToEnd();
+            }
+
+            this.Icon = new BitmapImage(new Uri("../../Images/icon.ico", UriKind.Relative));
+
             this.Closing += MainWindow_Closing;
             try
             {
@@ -31,7 +41,11 @@ namespace inventory_accounting
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                string writePath = "log.txt";
+                using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
+                {
+                    sw.WriteLine(ex.Message);
+                }
             }
         }
 
@@ -43,46 +57,51 @@ namespace inventory_accounting
             }
             else
                 e.Cancel = true;
-
-
         }
-
         private void loadingBase_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-
                 OpenFileDialog OPF = new OpenFileDialog();
-                Loading loading = new Loading();
+                loading = new Loading();
                 OPF.Filter = "Excel Worksheets|*.xls*";
                 if (OPF.ShowDialog() == true)
                 {
-                    try
+                    loading.Show();
+                    path = OPF.FileName;
+                    addNew = !((sender as MenuItem).Name == "Old");
+                    using (BackgroundWorker worker = new BackgroundWorker())
                     {
-                        loading.Show();
-                        if ((sender as MenuItem).Name == "Old")
-                            database.makeDataBase(OPF.FileName);
-                        else
-                            database.createNewDataBase(OPF.FileName);
-                        string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
-                        Process.Start(path);
-                        Process.GetCurrentProcess().Kill();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
+                        worker.WorkerReportsProgress = true;
+                        worker.DoWork += worker_DoWork;
+                        worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+                        worker.RunWorkerAsync();
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                string writePath = "log.txt";
+                using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
+                {
+                    sw.WriteLine(ex.Message);
+                }
             }
         }
 
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            database = new Database();
+            loading.Close();
+        }
 
-
-
+        void worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            if (!addNew)
+                database.makeDataBase(path);
+            else
+                database.createNewDataBase(path);
+        }
         private void Nomenclature_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -98,15 +117,13 @@ namespace inventory_accounting
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                string writePath = "log.txt";
+                using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
+                {
+                    sw.WriteLine(ex.Message);
+                }
             }
-
-
         }
-
-
-
-
         private void Report_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -122,23 +139,18 @@ namespace inventory_accounting
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                string writePath = "log.txt";
+                using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
+                {
+                    sw.WriteLine(ex.Message);
+                }
             }
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-           
-
-        }
-
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             Process p = Process.Start("calc.exe");
             p.WaitForInputIdle();
         }
-
-       
         private void MenuItem_Loaded(object sender, RoutedEventArgs e)
         {
             MyCalandar.DisplayDate = DateTime.Now;

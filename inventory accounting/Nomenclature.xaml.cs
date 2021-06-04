@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using inventory_accounting_Library;
 
 namespace inventory_accounting
 {
@@ -19,18 +10,25 @@ namespace inventory_accounting
     /// </summary>
     public partial class Nomenclature : Window
     {
-        Database database;
+        private Database database;
         public Nomenclature(Database database)
         {
             InitializeComponent();
             this.database = database;
+            settings();
+        }
+        private void settings()
+        {
             table.setList(database.Products);
             table.table.Columns[5].Visibility = Visibility.Collapsed;
             table.table.Columns[6].Visibility = Visibility.Collapsed;
             table.table.Columns[7].Visibility = Visibility.Collapsed;
             table.table.Columns[8].Visibility = Visibility.Collapsed;
+            table.find_Summ.Visibility = Visibility.Collapsed;
+            table.find_Discount.Visibility = Visibility.Collapsed;
+            table.find_SummDiscount.Visibility = Visibility.Collapsed;
+            table.find_SummPurchase.Visibility = Visibility.Collapsed;
             this.Icon = new BitmapImage(new Uri("../../Images/nom.png", UriKind.Relative));
-
         }
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
@@ -46,8 +44,5 @@ namespace inventory_accounting
                 table.table.SelectedItem = addNewItem.item;
             }
         }
-
-
-
     }
 }
