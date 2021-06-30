@@ -1,7 +1,7 @@
 ﻿inventory accounting
 
 
-winexe
+exe
 C#
 .cs
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\
@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\App.xaml
-131728652054
+15-567656121
 
-181456888933
-221164460958
-AddNewItem.xaml;AddNewReport.xaml;Loading.xaml;ReportWindow.xaml;MainWindow.xaml;Nomenclature.xaml;ReportTable.xaml;SelectingPrice.xaml;SelectingQuantity.xaml;UserControll\BigTable.xaml;UserControll\Selection.xaml;SelectionWindow.xaml;UserControll\Table.xaml;
+241243160995
+2033103090
+AddNewItem.xaml;AddNewReport.xaml;DateInterval.xaml;Loading.xaml;ReportWindow.xaml;MainWindow.xaml;Nomenclature.xaml;ReportTable.xaml;RKO_Window.xaml;SelectingPrice.xaml;SelectingQuantity.xaml;UserControll\BigTable.xaml;UserControll\Selection.xaml;SelectionWindow.xaml;UserControll\Table.xaml;
 
-False
+True
 

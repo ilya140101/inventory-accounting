@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Windows.Media.Imaging;
+using inventory_accounting;
 
 namespace inventory_accounting_Library
 {

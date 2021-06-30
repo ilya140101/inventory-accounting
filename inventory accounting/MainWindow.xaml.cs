@@ -5,9 +5,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
-using inventory_accounting_Library;
 using System.IO;
-using System.Threading;
+using System.Collections.Generic;
 
 namespace inventory_accounting
 {
@@ -22,7 +21,7 @@ namespace inventory_accounting
         public Loading loading { get; set; }
         private string path;
         private bool addNew;//true- новая БД, false- добавление к старой 
-
+       
         public MainWindow()
         {
             InitializeComponent();
@@ -47,6 +46,7 @@ namespace inventory_accounting
                     sw.WriteLine(ex.Message);
                 }
             }
+            
         }
 
         private void MainWindow_Closing(object sender, CancelEventArgs e)
@@ -63,6 +63,7 @@ namespace inventory_accounting
             try
             {
                 OpenFileDialog OPF = new OpenFileDialog();
+                OPF.InitialDirectory =Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(),"../../../Excel"));
                 loading = new Loading();
                 OPF.Filter = "Excel Worksheets|*.xls*";
                 if (OPF.ShowDialog() == true)
@@ -112,7 +113,10 @@ namespace inventory_accounting
                     nomenclature.Show();
                 }
                 else
+                {
+                    nomenclature.WindowState = WindowState.Normal;
                     nomenclature.Focus();
+                }
                 this.nomenclature.Closing += (Nomenclature, args) => this.nomenclature = null;
             }
             catch (Exception ex)
@@ -134,7 +138,7 @@ namespace inventory_accounting
                     reportTable.Show();
                 }
                 else
-                    reportTable.Focus();
+                    reportTable.Activate();
                 this.reportTable.Closing += (ReportTable, args) => this.reportTable = null;
             }
             catch (Exception ex)
@@ -154,6 +158,13 @@ namespace inventory_accounting
         private void MenuItem_Loaded(object sender, RoutedEventArgs e)
         {
             MyCalandar.DisplayDate = DateTime.Now;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            
+
+           
         }
     }
 }

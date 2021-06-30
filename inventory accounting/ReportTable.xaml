@@ -13,6 +13,7 @@
         </Grid.RowDefinitions>
         <Menu x:Name="Menu" Height="25" VerticalAlignment="Top" FontSize="15">
             <MenuItem Header="Создать новый отчет" Click="AddNewReport_Click"/>
+            <MenuItem x:Name="DateIntervalItem" Header="Интервал" Click="DateInterval_Click" />
         </Menu>       
         <DataGrid x:Name="table"  AutoGenerateColumns="False" Margin="30,30,30,92" FontSize="18" SelectionMode="Single" IsReadOnly="True" >
             <DataGrid.Columns>
@@ -24,7 +25,6 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>               
                 <DataGridTextColumn Header="Документ" Binding="{Binding ReportTypeString}" Width="*" x:Name="dgReportType"/>
-                <DataGridTextColumn Header="№" Binding="{Binding Number}" Width="*"/>
                 <DataGridTextColumn Header="Дата" Binding="{Binding DateString}" Width="*" x:Name="dgDate"/>
                 <DataGridTextColumn Header="Сумма" Binding="{Binding Summ}" Width="*" x:Name="dgSumm" />                
             </DataGrid.Columns>

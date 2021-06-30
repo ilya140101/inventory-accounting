@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using inventory_accounting_Library;
 namespace inventory_accounting
 {
     /// <summary>

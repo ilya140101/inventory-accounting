@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using inventory_accounting_Library;
 namespace inventory_accounting
 {
     /// <summary>

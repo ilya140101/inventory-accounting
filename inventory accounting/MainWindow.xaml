@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Главное окно" >
     <Grid>
-        
+
         <Menu Height="30" VerticalAlignment="Top" FontSize="18" Grid.ColumnSpan="2">
             <MenuItem Header="База данных">
                 <MenuItem Header="Загрузить базу данных" >
@@ -31,9 +31,7 @@
                 </MenuItem>
 
                 <MenuItem Height="30" Header="Календарь" Loaded="MenuItem_Loaded" >
-                    <Calendar x:Name="MyCalandar" >
-                        
-                    </Calendar>
+                    <Calendar x:Name="MyCalandar" ></Calendar>
                     <MenuItem.Icon>
                         <Image  Source="Images/calendar.png" Margin="-6,-6,-11,-7" ></Image>
                     </MenuItem.Icon>

@@ -74,8 +74,8 @@ C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\AddNewReport.baml
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\Loading.g.cs
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\Loading.baml
-C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\bin\Debug\Topshelf.xml
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\inventory accounting.csproj.CopyComplete
-C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\bin\Debug\Topshelf.dll
-C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\bin\Debug\inventory_accounting_Library.pdb
-C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\bin\Debug\inventory_accounting_Library.dll
+C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\DateInterval.g.cs
+C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\DateInterval.baml
+C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\RKO_Window.g.cs
+C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\RKO_Window.baml
