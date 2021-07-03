@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\App.xaml
-15-567656121
+17-1353248305
 
-241243160995
+27-1130900246
 2033103090
-AddNewItem.xaml;AddNewReport.xaml;DateInterval.xaml;Loading.xaml;ReportWindow.xaml;MainWindow.xaml;Nomenclature.xaml;ReportTable.xaml;RKO_Window.xaml;SelectingPrice.xaml;SelectingQuantity.xaml;UserControll\BigTable.xaml;UserControll\Selection.xaml;SelectionWindow.xaml;UserControll\Table.xaml;
+AddNewItem.xaml;AddNewReport.xaml;DateInterval.xaml;EditTransactionType.xaml;Loading.xaml;ReportWindow.xaml;MainWindow.xaml;Nomenclature.xaml;ReportTable.xaml;Transaction_Window.xaml;SelectingPrice.xaml;SelectingQuantity.xaml;UserControll\BigTable.xaml;UserControll\Selection.xaml;SelectionWindow.xaml;UserControll\Table.xaml;CashRegisterStatementWindow.xaml;
 
 True
 

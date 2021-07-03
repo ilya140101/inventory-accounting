@@ -7,7 +7,7 @@
         mc:Ignorable="d" FontSize="18"
         
         Title="Выберите интервал" Height="250" Width="450" ResizeMode="NoResize"  WindowStartupLocation="CenterOwner">
-    <GroupBox Header="Интервал журнала" BorderBrush="LightGray" BorderThickness="3"  Margin="10,10,10,10">
+    <GroupBox Header="Период" BorderBrush="LightGray" BorderThickness="3"  Margin="10,10,10,10">
     <Grid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="32"  VerticalAlignment="Center"  >
             <TextBlock TextWrapping="Wrap" Text="С  " Margin="0,4,0,0"/>

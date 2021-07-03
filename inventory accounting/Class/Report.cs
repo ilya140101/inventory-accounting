@@ -16,9 +16,9 @@ namespace inventory_accounting
         public DateTime Date { get; set; }
         public int Number { get; set; }
         public BitmapImage Image { get; set; }
-        public RKO_Type Type { get; set; }
+        public Transaction_Type Type { get; set; }
 
-        public Report(int number, DateTime date, Database.Reports report, double summ, RKO_Type type=null)
+        public Report(int number, DateTime date, Database.Reports report, double summ, Transaction_Type type=null)
         {
             Number = number;
             Date = date;
@@ -30,6 +30,7 @@ namespace inventory_accounting
                 case Database.Reports.Entrance: ReportTypeString = "Поступление"; break;
                 case Database.Reports.Debiting: ReportTypeString = "Списание"; break;
                 case Database.Reports.RKO: ReportTypeString = "РКО"; break;
+                case Database.Reports.PKO: ReportTypeString = "ПКО"; break;
             }
             if(!(type is null) && type.Type != "")
                 ReportTypeString+= "(" + type.Type + ")";

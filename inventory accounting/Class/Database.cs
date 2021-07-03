@@ -22,7 +22,9 @@ namespace inventory_accounting
             [Description("Списание")]
             Debiting,
             [Description("РКО")]
-            RKO
+            RKO,
+            [Description("ПКО")]
+            PKO
         }
 
 
@@ -42,12 +44,15 @@ namespace inventory_accounting
 
         public List<Product> Products { get; set; }
         public List<Report> Report { get; set; }
-        public List<RKO_Type> RKO_Types { get; set;}
+        public List<Transaction_Type> RKO_Types { get; set; }
+        public List<Transaction_Type> PKO_Types { get; set; }
 
         public BitmapImage Sales_Image;
         public BitmapImage Entrance_Image;
         public BitmapImage Debiting_Image;
         public BitmapImage RKO_Image;
+        public BitmapImage PKO_Image;
+        public BitmapImage Error_Image;
 
         public void createNewDataBase(string path)
         {
@@ -105,7 +110,7 @@ namespace inventory_accounting
                         string writePath = "log.txt";
                         using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
                         {
-                            sw.WriteLine(ex.Message);
+                            sw.WriteLine(ex.StackTrace);
                         }
                     }
                 }
@@ -115,7 +120,7 @@ namespace inventory_accounting
                 string writePath = "log.txt";
                 using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
                 {
-                    sw.WriteLine(ex.Message);
+                    sw.WriteLine(ex.StackTrace);
                 }
             }
             finally
@@ -131,7 +136,8 @@ namespace inventory_accounting
             {
                 Products = new List<Product>();
                 Report = new List<Report>();
-                RKO_Types = new List<RKO_Type>();
+                RKO_Types = new List<Transaction_Type>();
+                PKO_Types = new List<Transaction_Type>();
                 myConnection = new OleDbConnection(connectString);
                 myConnection.Open();
                 loading();
@@ -144,7 +150,7 @@ namespace inventory_accounting
                 string writePath = "log.txt";
                 using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
                 {
-                    sw.WriteLine(ex.Message);
+                    sw.WriteLine(ex.StackTrace);
                 }
             }
             finally
@@ -157,6 +163,10 @@ namespace inventory_accounting
             if (Report.Count == 0)
                 return 1;
             return Report.Max(item => item.Number) + 1;
+        }
+        public string getIntervalDateString(DateTime LeftDate, DateTime RightDate)
+        {
+            return "(" + LeftDate.ToShortDateString() + " - " + RightDate.ToShortDateString() + ")";
         }
         public List<Product> GetProducts(int number)
         {
@@ -171,7 +181,7 @@ namespace inventory_accounting
             OleDbDataReader reader = command.ExecuteReader();
 
             while (reader.Read())
-                list.Add(new Product(Convert.ToInt32(reader[0]), reader[1].ToString(), Convert.ToDouble(reader[2]), Convert.ToDouble(reader[3]), Convert.ToDouble(reader[4])));
+                list.Add(new Product(Convert.ToInt32(reader[0]), reader[1].ToString(), Convert.ToDouble(reader[2]), Convert.ToDouble(reader[3]), Convert.ToDouble(reader[4]), Convert.ToDouble(reader[5])));
 
             reader.Close();
 
@@ -182,25 +192,61 @@ namespace inventory_accounting
         {
             try
             {
-                return Report.Where((x) =>x.Date>=leftDate && rightDate>= x.Date).ToList();
+                return Report.Where((x) => x.Date >= leftDate && rightDate >= x.Date).ToList();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
                 return null;
             }
+        }
+        public List<CashRegisterStatement> GetCashRegisterStatement(DateTime leftDate, DateTime rightDate)
+        {
+            List<CashRegisterStatement> list = new List<CashRegisterStatement>();
+            if (Report.Count == 0)
+                return list;
+
+            DateTime current = Report.First().Date;
+            list.Add(new CashRegisterStatement(current, 0, 0, 0, 0));
+            foreach (Report item in Report)
+            {
+                CashRegisterStatement last = list.Last();
+                if (item.Date != current)
+                {
+                    last.FinalBalance = last.InitialBalance + last.Arrival - last.Expenditure;
+                    current = item.Date;
+                    list.Add(new CashRegisterStatement(current, last.FinalBalance, 0, 0, 0));
+                    last = list.Last();
+                }
+
+                switch (item.ReportType)
+                {
+                    case Reports.Sales: case Reports.PKO: last.Arrival += item.Summ; break;
+                    case Reports.RKO: last.Expenditure += item.Summ; break;
+                }
+                if (item == Report.Last())
+                    last.FinalBalance = last.InitialBalance + last.Arrival - last.Expenditure;
+            }
+
+            return list.Where((x) => x.Date >= leftDate && x.Date <= rightDate).ToList();
         }
         public void loading()
         {
             loadingProducts();
+            loadingImages();
+            loadingReport();
+            loadingTransactionType();
+
+        }
+        public void loadingImages()
+        {
             Sales_Image = new BitmapImage(new Uri("Images/Sales.png", UriKind.Relative));
             Entrance_Image = new BitmapImage(new Uri("Images/Entrance.png", UriKind.Relative));
             Debiting_Image = new BitmapImage(new Uri("Images/Debiting.png", UriKind.Relative));
             RKO_Image = new BitmapImage(new Uri("Images/RKO.png", UriKind.Relative));
+            PKO_Image = new BitmapImage(new Uri("Images/PKO.png", UriKind.Relative));
+            Error_Image = new BitmapImage(new Uri("Images/Error.png", UriKind.Relative));
 
-            loadingReport();
-            loadingMoneyType();
-           
         }
         public void loadingProducts()
         {
@@ -226,7 +272,7 @@ namespace inventory_accounting
                 Report.Add(new Report(Convert.ToInt32(reader[0]),
                     Convert.ToDateTime(reader[1]),
                     (Database.Reports)Enum.Parse(typeof(Database.Reports), reader[2].ToString()),
-                    Convert.ToDouble(reader[3]), new RKO_Type(reader[4].ToString())));
+                    Convert.ToDouble(reader[3]), new Transaction_Type(reader[4].ToString())));
 
 
                 switch (Report.Last().ReportType)
@@ -235,21 +281,27 @@ namespace inventory_accounting
                     case Reports.Sales: img = Sales_Image; break;
                     case Reports.Entrance: img = Entrance_Image; break;
                     case Reports.RKO: img = RKO_Image; break;
+                    case Reports.PKO: img = PKO_Image; break;
+                    default: img = Error_Image; break;
                 }
                 Report.Last().Image = img;
             }
             reader.Close();
         }
-        public void loadingMoneyType()
+        public void loadingTransactionType()
         {
-            string query = "SELECT * FROM MoneyType ";
+            string query = "SELECT * FROM TransactionType ";
 
             OleDbCommand command = new OleDbCommand(query, myConnection);
-            OleDbDataReader reader = command.ExecuteReader();          
+            OleDbDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                RKO_Types.Add(new RKO_Type((reader.GetString(0))));
-                //Console.WriteLine(reader.GetString(0));
+                switch (reader[1].ToString())
+                {
+                    case "RKO": RKO_Types.Add(new Transaction_Type((reader.GetString(0)))); break;
+                    case "PKO": PKO_Types.Add(new Transaction_Type((reader.GetString(0)))); break;
+                }
+
             }
             reader.Close();
         }
@@ -266,7 +318,7 @@ namespace inventory_accounting
             command.Parameters.AddWithValue("DateT", item.Date.ToShortDateString());
             command.Parameters.AddWithValue("ReportType", item.ReportType.ToString());
             command.Parameters.AddWithValue("Summ", item.Summ);
-            
+
 
             command.ExecuteNonQuery();
             myConnection.Close();
@@ -276,6 +328,8 @@ namespace inventory_accounting
                 case Reports.Sales: img = Sales_Image; break;
                 case Reports.Entrance: img = Entrance_Image; break;
                 case Reports.RKO: img = RKO_Image; break;
+                case Reports.PKO: img = PKO_Image; break;
+                default: img = Error_Image; break;
             }
             item.Image = img;
         }
@@ -320,7 +374,7 @@ namespace inventory_accounting
                 string writePath = "log.txt";
                 using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
                 {
-                    sw.WriteLine(ex.Message);
+                    sw.WriteLine(ex.StackTrace);
                 }
             }
 
@@ -349,7 +403,7 @@ namespace inventory_accounting
                 string writePath = "log.txt";
                 using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
                 {
-                    sw.WriteLine(ex.Message);
+                    sw.WriteLine(ex.StackTrace);
                 }
             }
         }
@@ -379,7 +433,7 @@ namespace inventory_accounting
                 string writePath = "log.txt";
                 using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
                 {
-                    sw.WriteLine(ex.Message);
+                    sw.WriteLine(ex.StackTrace);
                 }
             }
         }
@@ -402,7 +456,7 @@ namespace inventory_accounting
                 string writePath = "log.txt";
                 using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
                 {
-                    sw.WriteLine(ex.Message);
+                    sw.WriteLine(ex.StackTrace);
                 }
             }
             finally
@@ -413,12 +467,12 @@ namespace inventory_accounting
         public void updateReport(Report report)
         {
             myConnection.Open();
-            string query = "UPDATE AllReport SET Summ=@Summ, RKO_Type=@RKO_Type WHERE NumberN=@NumberN";
+            string query = "UPDATE AllReport SET Summ=@Summ, TransactionType=@TransactionType WHERE NumberN=@NumberN";
             try
             {
                 OleDbCommand command = new OleDbCommand(query, myConnection);
                 command.Parameters.AddWithValue("Summ", report.Summ);
-                command.Parameters.AddWithValue("RKO_Type", report.Type.Type);
+                command.Parameters.AddWithValue("TransactionType", report.Type.Type);
                 command.Parameters.AddWithValue("NumberN", report.Number);
 
                 command.ExecuteNonQuery();
@@ -429,7 +483,54 @@ namespace inventory_accounting
                 string writePath = "log.txt";
                 using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
                 {
-                    sw.WriteLine(ex.Message);
+                    sw.WriteLine(ex.StackTrace);
+                }
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+        }
+        public void updateTransactionType(Report report)
+        {
+            myConnection.Open();
+            string query = "DELETE FROM TransactionType WHERE ReportType = @ReportType";
+
+            try
+            {
+                OleDbCommand command = new OleDbCommand(query, myConnection);// удаление старых записей
+                command.Parameters.AddWithValue("ReportType", report.ReportType.ToString());
+                command.ExecuteNonQuery();
+
+                List<Transaction_Type> listTmp;
+                Reports reportsTmp;
+                if (report.ReportType == Reports.RKO)
+                {
+                    listTmp = RKO_Types;
+                    reportsTmp = Reports.RKO;
+                }
+                else
+                {
+                    listTmp = PKO_Types;
+                    reportsTmp = Reports.PKO;
+                }
+                foreach (Transaction_Type tmp in listTmp)
+                {
+                    query = "INSERT INTO TransactionType (T_Transaction, ReportType) VALUES (@T_Transaction, @ReportType)";
+                    command = new OleDbCommand(query, myConnection);
+                    command.Parameters.AddWithValue("T_Transaction", tmp.Type);
+                    command.Parameters.AddWithValue("ReportType", reportsTmp.ToString());
+
+                    command.ExecuteNonQuery();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                string writePath = "log.txt";
+                using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
+                {
+                    sw.WriteLine(ex.StackTrace);
                 }
             }
             finally
@@ -453,7 +554,7 @@ namespace inventory_accounting
                 string writePath = "log.txt";
                 using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
                 {
-                    sw.WriteLine(ex.Message);
+                    sw.WriteLine(ex.StackTrace);
                 }
             }
         }
@@ -475,7 +576,7 @@ namespace inventory_accounting
                 string writePath = "log.txt";
                 using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
                 {
-                    sw.WriteLine(ex.Message);
+                    sw.WriteLine(ex.StackTrace);
                 }
             }
         }

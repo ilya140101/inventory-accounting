@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:inventory_accounting"
         mc:Ignorable="d"
-        Title="Главное окно" >
+        Title="Главное окно" WindowState="Maximized" >
     <Grid>
 
         <Menu Height="30" VerticalAlignment="Top" FontSize="18" Grid.ColumnSpan="2">
@@ -23,6 +23,10 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem x:Name="Nomenclature" Header="Номенклатура" Click="Nomenclature_Click" ></MenuItem>
+            <MenuItem Header="Отчеты">
+                <MenuItem x:Name="CashRegisterStatementItem"  Header="Ведомость по кассе" Click="CashRegisterStatementItem_Click"/>
+            </MenuItem>
+
             <MenuItem  Header="Служебные" >
                 <MenuItem Height="30"  Header="Калькулятор" Click="MenuItem_Click"  >
                     <MenuItem.Icon>
@@ -39,7 +43,8 @@
             </MenuItem>
         </Menu>
         <Menu VerticalAlignment="Bottom" Height="25" Background="#FF8F8F8F" Grid.ColumnSpan="2"></Menu>
-        <TextBox IsReadOnly="True"  x:Name="Manual" Background="LightGray" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="50,50" TextWrapping="Wrap" FontSize="18"   />
+        <TextBox  IsReadOnly="True"  x:Name="Manual" Background="LightGray" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="50,50" TextWrapping="Wrap" FontSize="18"   />
+
 
     </Grid>
 </Window>

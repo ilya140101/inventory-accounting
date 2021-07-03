@@ -80,11 +80,15 @@
       <DependentUpon>AddNewReport.xaml</DependentUpon>
     </Compile>
     <Compile Include="Class\Database.cs" />
-    <Compile Include="Class\RKO_Type.cs" />
+    <Compile Include="Class\Transaction_Type.cs" />
     <Compile Include="Class\Product.cs" />
     <Compile Include="Class\Report.cs" />
+    <Compile Include="Class\CashRegisterStatement.cs" />
     <Compile Include="DateInterval.xaml.cs">
       <DependentUpon>DateInterval.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EditTransactionType.xaml.cs">
+      <DependentUpon>EditTransactionType.xaml</DependentUpon>
     </Compile>
     <Compile Include="Loading.xaml.cs">
       <DependentUpon>Loading.xaml</DependentUpon>
@@ -95,8 +99,8 @@
     <Compile Include="ReportTable.xaml.cs">
       <DependentUpon>ReportTable.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RKO_Window.xaml.cs">
-      <DependentUpon>RKO_Window.xaml</DependentUpon>
+    <Compile Include="Transaction_Window.xaml.cs">
+      <DependentUpon>Transaction_Window.xaml</DependentUpon>
     </Compile>
     <Compile Include="SelectingPrice.xaml.cs">
       <DependentUpon>SelectingPrice.xaml</DependentUpon>
@@ -116,6 +120,9 @@
     <Compile Include="UserControll\Table.xaml.cs">
       <DependentUpon>Table.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CashRegisterStatementWindow.xaml.cs">
+      <DependentUpon>CashRegisterStatementWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="AddNewItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -125,6 +132,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DateInterval.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditTransactionType.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -156,7 +167,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RKO_Window.xaml">
+    <Page Include="Transaction_Window.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -181,6 +192,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControll\Table.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CashRegisterStatementWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -255,6 +270,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\RKO.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\PKO.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

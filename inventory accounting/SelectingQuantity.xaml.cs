@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -41,7 +42,18 @@ namespace inventory_accounting
                 return;
 
             string text = tbx.Text;
-            Summ.Text = (Convert.ToDouble(text) * item.SalePrice - Convert.ToDouble(Discount.Text)).ToString();
+            try
+            {
+                Summ.Text = (Convert.ToDouble(text) * item.SalePrice - Convert.ToDouble(Discount.Text)).ToString();
+            }
+            catch (Exception ex)
+            {
+                string writePath = "log.txt";
+                using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
+                {
+                    sw.WriteLine(ex.StackTrace);
+                }
+            }
         }
 
         private void OK_Click(object sender, RoutedEventArgs e)
@@ -69,28 +81,49 @@ namespace inventory_accounting
 
         private void Discount_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (item is null || !(sender is TextBox tbx))
-                return;
-            if (string.IsNullOrWhiteSpace(tbx.Text))
+            try
             {
-                Summ.Text = (Convert.ToDouble(Count.Text) * item.SalePrice).ToString();
-                return;
+                if (item is null || !(sender is TextBox tbx))
+                    return;
+                if (string.IsNullOrWhiteSpace(tbx.Text))
+                {
+                    Summ.Text = (Convert.ToDouble(Count.Text) * item.SalePrice).ToString();
+                    return;
+                }
+                string text = tbx.Text;
+                Summ.Text = (Convert.ToDouble(Count.Text) * item.SalePrice - Convert.ToDouble(text)).ToString();
             }
-            string text = tbx.Text;
-            Summ.Text = (Convert.ToDouble(Count.Text) * item.SalePrice - Convert.ToDouble(text)).ToString();
+            catch (Exception ex)
+            {
+                string writePath = "log.txt";
+                using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
+                {
+                    sw.WriteLine(ex.StackTrace);
+                }
+            }
         }
 
         private void Summ_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (item is null || !(sender is TextBox tbx))
-                return;
-            if (string.IsNullOrWhiteSpace(tbx.Text))
-            {
-                Discount.Text = (Convert.ToDouble(Count.Text) * item.SalePrice).ToString();
-                return;
+            try {
+                if (item is null || !(sender is TextBox tbx))
+                    return;
+                if (string.IsNullOrWhiteSpace(tbx.Text))
+                {
+                    Discount.Text = (Convert.ToDouble(Count.Text) * item.SalePrice).ToString();
+                    return;
+                }
+                string text = tbx.Text;
+                Discount.Text = (Math.Round(Convert.ToDouble(Count.Text) * item.SalePrice - Convert.ToDouble(text), 2)).ToString();
             }
-            string text = tbx.Text;
-            Discount.Text = (Convert.ToDouble(Count.Text) * item.SalePrice - Convert.ToDouble(text)).ToString();
+            catch (Exception ex)
+            {
+                string writePath = "log.txt";
+                using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
+                {
+                    sw.WriteLine(ex.StackTrace);
+                }
+            }
         }
 
         private void NewLostFocus(object sender, RoutedEventArgs e)

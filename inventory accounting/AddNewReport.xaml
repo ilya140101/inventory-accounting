@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:inventory_accounting"
         mc:Ignorable="d"
-        Title="Создать новый отчет" Height="350" Width="400" FontSize="18" ResizeMode="NoResize">
-    <GroupBox Header="Создание отчета" BorderBrush="LightGray" BorderThickness="3" Margin="6,6,6,6">
+        Title="Создать новый документ" Height="350" Width="400" FontSize="18" ResizeMode="NoResize">
+    <GroupBox Header="Создание документа" BorderBrush="LightGray" BorderThickness="3" Margin="6,6,6,6">
         <Grid>
-            <TextBlock HorizontalAlignment="Left" Margin="24,58,0,0" TextWrapping="Wrap" Text="Тип отчета:" VerticalAlignment="Top" Width="120"/>
+            <TextBlock HorizontalAlignment="Left" Margin="24,58,0,0" TextWrapping="Wrap" Text="Тип документа:" VerticalAlignment="Top" Width="135"/>
             <TextBlock HorizontalAlignment="Left" Margin="24,148,0,0" TextWrapping="Wrap" Text="Дата:" VerticalAlignment="Top" Width="120"/>
             <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="196,58,0,0" VerticalAlignment="Top" Width="156" Height="32"/>
             <DatePicker x:Name="datePicker" HorizontalAlignment="Left" Margin="196,144,0,0" VerticalAlignment="Top" Height="31" Width="156"/>

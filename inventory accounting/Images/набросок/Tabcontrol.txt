@@ -1,0 +1,13 @@
+<TabControl TabStripPlacement="Left" HorizontalAlignment="Left"  Height="439" Margin="0,35,0,0" VerticalAlignment="Top" Width="750" RenderTransformOrigin="0.5,0.5">
+            <TabItem >
+                <TabItem.Header>
+                    <Image Width="65" Height="60" Source="Images/books.png"/>
+                </TabItem.Header>
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem >
+                <TabItem.Header>
+                    <Image Width="65" Height="60" Source="Images/nom.png"/>
+                </TabItem.Header>
+            </TabItem>
+        </TabControl>

@@ -12,10 +12,10 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Menu x:Name="Menu" Height="25" VerticalAlignment="Top" FontSize="15">
-            <MenuItem Header="Создать новый отчет" Click="AddNewReport_Click"/>
+            <MenuItem Header="Создать новый документ" Click="AddNewReport_Click"/>
             <MenuItem x:Name="DateIntervalItem" Header="Интервал" Click="DateInterval_Click" />
         </Menu>       
-        <DataGrid x:Name="table"  AutoGenerateColumns="False" Margin="30,30,30,92" FontSize="18" SelectionMode="Single" IsReadOnly="True" >
+        <DataGrid x:Name="table" AutoGenerateColumns="False" Margin="30,30,30,92" FontSize="18" SelectionMode="Single" IsReadOnly="True" >
             <DataGrid.Columns>
                 <DataGridTemplateColumn Width="30" IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>

@@ -38,6 +38,8 @@ namespace inventory_accounting
             if (reports == Database.Reports.Sales)
             {
                 table.table.Columns[3].Visibility = Visibility.Collapsed;
+                table.table.Columns[7].Visibility = Visibility.Collapsed;
+                table.find_SummPurchase.Visibility = Visibility.Collapsed;
                 table.find_purchasePrice.Visibility = Visibility.Collapsed;
             }
             if (reports == Database.Reports.Entrance || reports == Database.Reports.Debiting)
@@ -120,7 +122,7 @@ namespace inventory_accounting
                     string writePath = "log.txt";
                     using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
                     {
-                        sw.WriteLine(ex.Message);
+                        sw.WriteLine(ex.StackTrace);
                     }
                 }
                 finally
@@ -159,7 +161,7 @@ namespace inventory_accounting
                         string writePath = "log.txt";
                         using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
                         {
-                            sw.WriteLine(ex.Message);
+                            sw.WriteLine(ex.StackTrace);
                         }
                     }
                     finally

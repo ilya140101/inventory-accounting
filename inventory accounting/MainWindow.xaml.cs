@@ -19,6 +19,8 @@ namespace inventory_accounting
         public Nomenclature nomenclature { get; set; }
         public ReportTable reportTable { get; set; }
         public Loading loading { get; set; }
+        private DateTime LeftDate { get; set; }
+        private DateTime RightDate { get; set; }
         private string path;
         private bool addNew;//true- новая БД, false- добавление к старой 
        
@@ -43,7 +45,7 @@ namespace inventory_accounting
                 string writePath = "log.txt";
                 using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
                 {
-                    sw.WriteLine(ex.Message);
+                    sw.WriteLine(ex.StackTrace);
                 }
             }
             
@@ -85,7 +87,7 @@ namespace inventory_accounting
                 string writePath = "log.txt";
                 using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
                 {
-                    sw.WriteLine(ex.Message);
+                    sw.WriteLine(ex.StackTrace);
                 }
             }
         }
@@ -124,7 +126,7 @@ namespace inventory_accounting
                 string writePath = "log.txt";
                 using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
                 {
-                    sw.WriteLine(ex.Message);
+                    sw.WriteLine(ex.StackTrace);
                 }
             }
         }
@@ -146,7 +148,7 @@ namespace inventory_accounting
                 string writePath = "log.txt";
                 using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
                 {
-                    sw.WriteLine(ex.Message);
+                    sw.WriteLine(ex.StackTrace);
                 }
             }
         }
@@ -158,13 +160,25 @@ namespace inventory_accounting
         private void MenuItem_Loaded(object sender, RoutedEventArgs e)
         {
             MyCalandar.DisplayDate = DateTime.Now;
-        }
+        }               
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             
+            
+        }
 
-           
+        private void CashRegisterStatementItem_Click(object sender, RoutedEventArgs e)
+        {
+            DateTime now = DateTime.Now;
+            LeftDate = new DateTime(now.Year, now.Month, 1);
+            RightDate = now;
+            DateInterval dateInterval = new DateInterval(LeftDate, RightDate);
+            dateInterval.Owner = this;
+            if (dateInterval.ShowDialog() != true)
+                return;
+            CashRegisterStatementWindow window = new CashRegisterStatementWindow(database, dateInterval.LeftDate.SelectedDate.Value, dateInterval.RightDate.SelectedDate.Value);
+            window.Show();
         }
     }
 }

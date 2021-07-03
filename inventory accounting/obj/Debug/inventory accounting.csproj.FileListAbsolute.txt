@@ -77,5 +77,9 @@ C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\inventory accounting.csproj.CopyComplete
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\DateInterval.g.cs
 C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\DateInterval.baml
-C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\RKO_Window.g.cs
-C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\RKO_Window.baml
+C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\Transaction_Window.g.cs
+C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\Transaction_Window.baml
+C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\EditTransactionType.g.cs
+C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\EditTransactionType.baml
+C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\CashRegisterStatementWindow.g.cs
+C:\Users\Ilya1\source\repos\inventory-accounting\inventory accounting\obj\Debug\CashRegisterStatementWindow.baml

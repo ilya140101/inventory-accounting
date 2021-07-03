@@ -231,7 +231,7 @@ namespace inventory_accounting
                 string writePath = "log.txt";
                 using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
                 {
-                    sw.WriteLine(ex.Message);
+                    sw.WriteLine(ex.StackTrace);
                 }
             }
             return null;

@@ -36,7 +36,7 @@ namespace inventory_accounting
         }
         private async void ChangeDate()
         {
-            Title = "Общий журнал документов (" + LeftDate.ToShortDateString() + "-" + RightDate.ToShortDateString() + ")";
+            Title = "Общий журнал документов" + database.getIntervalDateString(LeftDate,RightDate);
             await Task.Run(() => Reports = database.GetReport(LeftDate, RightDate));
             table.ItemsSource = Reports;
         }
@@ -45,12 +45,12 @@ namespace inventory_accounting
             if (!((sender as DataGridCell).DataContext is Report item))
                 return;
 
-            if (item.ReportType == Database.Reports.RKO)
+            if (item.ReportType == Database.Reports.RKO || item.ReportType == Database.Reports.PKO)
             {
-                RKO_Window RKO = new RKO_Window(database, item);
-                RKO.Owner = this;
-                RKO.Show();
-                RKO.Closing += RKO_Closing;
+                Transaction_Window transaction_Window = new Transaction_Window(database, item);
+                transaction_Window.Owner = this;
+                transaction_Window.Show();
+                transaction_Window.Closing += Transaction_Window_Closing; ;
             }
             else
             {
@@ -61,14 +61,19 @@ namespace inventory_accounting
             }
         }
 
-        private void RKO_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void Transaction_Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
-            if ((sender as RKO_Window ).flag == true)
+            if ((sender as Transaction_Window).flag == true)
             {
-                Report report = (sender as RKO_Window).report;
+                Report report = (sender as Transaction_Window).report;
                 database.updateReport(report);
-                report.ReportTypeString = "РКО" + "(" + report.Type.Type + ")";
+                if (report.ReportType == Database.Reports.RKO)
+                    report.ReportTypeString = "РКО";
+                else
+                    report.ReportTypeString = "ПКО";
+
+                report.ReportTypeString += "(" + report.Type.Type + ")";
+
                 update();
             }
         }
@@ -126,7 +131,7 @@ namespace inventory_accounting
                         string writePath = "log.txt";
                         using (StreamWriter sw = new StreamWriter(writePath, true, System.Text.Encoding.Default))
                         {
-                            sw.WriteLine(ex.Message);
+                            sw.WriteLine(ex.StackTrace);
                         }
                     }
                     finally
